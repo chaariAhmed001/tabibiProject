@@ -1,0 +1,29 @@
+.logIn-container,.signUp-container,.lostPass-container{
+    background-color: #F9FAFA;
+    padding: 40px 0px;
+}
+
+.or-divide {
+    border-top: 2px solid #eaedff;
+    margin: 30px auto;
+    text-align: center;
+    position: relative;
+    
+}
+.or-divide span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9px;
+    background: #F9FAFA;
+    display: inline-block;
+    width: 40px;
+    margin: auto;
+    line-height: 0.8;
+    font-weight: 500;
+}
+
+.signIN-btn button{
+    background-color: #FAA85B;
+    color: white
+}

@@ -1,0 +1,14 @@
+.calendar-container{
+    background-color: #F9FAFA;
+    padding:40px;
+}
+.fc-day-number {
+    font-size: 1.5em;
+    color: red;
+  }
+  
+  /* override day title color and size */
+  .fc-day-header {
+    font-size: 1.5em;
+    color: red;
+  }

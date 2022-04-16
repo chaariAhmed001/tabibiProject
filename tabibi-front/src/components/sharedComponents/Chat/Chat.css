@@ -1,0 +1,109 @@
+.chat-container{
+    background-color: #F9FAFA;
+    font-family: 'Mulish', sans-serif;
+}
+.chat-container .container {
+    margin: 60px auto;
+    padding: 0;
+    border-radius: 7px;
+}
+
+/* Profil Style */
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 40px;
+    object-fit: cover;
+}
+.profile-sec{
+  background: #EEF9FF !important;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 20px 5px;
+}
+
+/* Search Style  */
+
+.input-wrapper{
+    background-color: #EEF9FF;
+    border-radius: 40px;
+    padding: 10px 15px
+}
+.search-icon, .icons{
+    color: #67A0D4;
+    vertical-align: middle;
+    font-size: 20px;
+}
+input {
+    border: none;
+    border-radius: 40px;
+    width: 80%;
+    background-color: #EEF9FF !important;
+    color: #A9A9AC;
+    
+}
+input::placeholder{
+    color: #A9A9AC;
+}
+input:focus{
+    outline: none;
+}
+
+/* discussion List Style */
+.deslist-sec{
+    background: #EEF9FF;
+    border-radius: 20px;
+    height: 330px;
+    overflow-y: scroll;
+}
+.discussion-item{
+  padding: 10px 15px;
+  display: flex;
+  vertical-align: baseline;
+  
+  transition: .3s ease;
+}
+.discussion-item .text {
+    margin-left: 12px;
+    width: 70%;
+}
+.discussion-item .time {
+    color: #67A0D4;
+}
+.discussion-item:hover{
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+/* Discussion Style  */
+.chat-section{
+    background-color: #EEF9FF;
+    margin-left: 10px;
+    height: 350px;
+    border-radius: 20px;
+
+}
+.chat-bubble {
+    padding: 10px 14px;
+    background: #eee;
+    margin: 10px;
+    position: relative;
+    animation: fadeIn 1s ease-in;
+}
+.chat-bubble-left{
+    background-color: #67A0D4;
+    border-radius: 0px 9px 9px 9px;
+    color: white;
+}
+.chat-bubble-right{
+    background-color: #FAA85B   ;
+    border-radius: 9px 9px 0px 9px;
+    color: white;
+}
+.icons button{
+    border: none;
+    color: #67A0D4;
+    background: none;
+}
+

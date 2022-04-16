@@ -1,0 +1,21 @@
+.rentHomeBanner-container .carousel-inner{
+    height: 60vh;
+
+}
+.rentHomeBanner-container .carousel-item img{
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+.banner-searchBtn{
+    background-color: white !important;
+    font-weight: 900 !important;
+    text-transform: inherit !important;
+    color: #67A0D4 !important;
+    border-color: #356496;
+}
+.banner-searchBtn:hover{
+    
+    background-color: #FAA85B !important;
+    border-color: #FAA85B;
+}

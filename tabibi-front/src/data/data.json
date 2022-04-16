@@ -1,0 +1,27 @@
+{
+    
+  "Home": {
+    "Header":{
+      "car1":
+      {
+        "title": "Project Title",
+        "largeImage": "img/portfolio/01-large.jpg",
+        "smallImage": "img/portfolio/01-small.jpg"
+      
+      },
+      "car2":
+      {
+        "title": "Project Title",
+        "largeImage": "img/portfolio/01-large.jpg",
+        "smallImage": "img/portfolio/01-small.jpg"
+      
+      }
+    }
+      
+    
+    
+  }
+    
+  
+  
+}

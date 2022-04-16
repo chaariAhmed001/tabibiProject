@@ -1,0 +1,14 @@
+/* Map Scection Style */
+.map-section{
+    height: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+.map-section .leaflet-container {
+    height: 100%;
+    width: 100%;
+}
+.map-content{
+      width: 100%;
+      height: 100%;
+}

@@ -1,0 +1,53 @@
+.wichList-container{
+    background-color: #F9FAFA;
+    padding-bottom: 40px;
+}
+
+
+/* doctor Card Style */
+/* .doct-img img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 40px ;
+}
+.doctorCard-container{
+    
+    width: 200px;
+    background-color: #EEF9FF !important;
+} */
+.doctor-box{
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: #EEF9FF;
+    padding: 25px;
+    border-radius: 5px;
+    width: 240px;
+    transition: transform 100ms ease-in;
+}
+.doctor-box:hover{
+    background-color: #fff;
+    transform: scale(1.04);
+} 
+.doctor-box .doctor-img{
+    position: relative;
+    border-radius: 50%;
+}
+.doctor-box .doctor-img img{
+    display: inline-block !important;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.closeBtn{ 
+    font-size: 25px;
+    position: relative;
+    left: 30px;
+    bottom: 60px;
+    color: #67A0D4;
+    cursor: pointer;
+}
+.doctor-box .doctor-content span{
+    font-weight: 500;
+}

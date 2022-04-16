@@ -1,0 +1,40 @@
+.searchResult-filter > button{
+    margin: 5px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+.searchResult {
+    position: relative;
+    padding: 20px;
+    cursor: pointer;
+    background-color: #EEF9FF;
+    border-radius: 20px;
+    transition: transform 100ms ease-in;
+  }
+
+.searchResult:hover{
+    transform: scale(1.04);
+}
+.searchResult > img {
+    height: 200px;
+    width: 350px;
+    border-radius: 10px;
+    object-fit: cover;
+    overflow: hidden;
+}
+.searchResult__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 20px;
+}
+.searchResult__infoTop > h3 {
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.searchResult__infoTop > p {
+    margin-top: 10px;
+    font-size: 13px;
+    color: gray;
+  }

@@ -1,0 +1,22 @@
+.chooseUs-container{
+    background-color: #F6FEFF;
+}
+
+.section-title p {
+    font-family: 'Mulish', sans-serif;
+}
+.card-img{
+    padding: 10px;
+    background: #E9E9EB;
+    border-radius: 50%;
+    position: relative;
+    width: 180px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+.card-img img {
+    width: 150px;
+    height: 150px;
+    border-radius: inherit;
+    object-fit: cover;
+}
