@@ -20,12 +20,20 @@ import DoctorSignUp from './components/sharedComponents/Doctor/DoctorSignUp';
 import LandlodSignUp from './components/sharedComponents/Landlord/LandlodSignUp';
 import DoctorProfil from './components/sharedComponents/Doctor/DoctorProfil';
 import DoctorUpdate from './components/sharedComponents/Doctor/DoctorUpdate';
+import SideBar from './components/childComponents/SideBar/SideBar';
+import Dashbourd from './components/sharedComponents/Dashboard/Dashbourd';
 
 
 function App() {
   
   const [user, setUser] = useState({});
+  const [userType, setUserType] = useState('admin');
+  const [style, setStyle] = useState('');
 
+  useEffect(() => {
+    userType=== 'admin' ? setStyle('d-flex'):setStyle('')
+  }, [])
+  
   const logout = async () => {
     await fetch('http://localhost:5000/user/logout', {
         method: 'POST',
@@ -37,8 +45,9 @@ function App() {
 }
 
   return (
-    <div>
-      <NavBar />
+    <div className={style}>
+      {userType=== 'admin'? <SideBar /> :<NavBar /> }
+      
       {/* <button onClick={logout} >log out</button>
       <p>
       {name ? 'Hi ' + name : 'You are not logged in'}
@@ -61,9 +70,12 @@ function App() {
             <Route path='/doctorProfil' element={ <DoctorProfil user={user}/> } />
             <Route path='/doctorupdate' element={ <DoctorUpdate/> } />
             <Route path='/LandlodSignUp' element={ <LandlodSignUp user={user}/> } />
+            <Route path='/dashbourd' element={ <Dashbourd /> } />
+            
           </Routes>
       </Router>
-      <Footer />
+      {userType=== 'admin'? <></> :<Footer /> }
+      
     </div>
     );
 }
