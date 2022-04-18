@@ -1,0 +1,9 @@
+.dashbourd-container{
+    flex: 4;
+    
+}
+.pageTitle{
+    color: #5a5c69 !important;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
