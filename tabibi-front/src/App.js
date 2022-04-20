@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Footer from './components/childComponents/Footer';
-import Header from './components/childComponents/Header';
+//import Header from './components/childComponents/Header';
 import NavBar from './components/childComponents/NavBar';
 import AboutUs from './components/sharedComponents/AboutUs/AboutUs';
 import LogIn from './components/sharedComponents/Auth/LogIn';
 import Chat from './components/sharedComponents/Chat/Chat';
 import Contact from './components/sharedComponents/Contact/Contact';
 import Home from './components/sharedComponents/Home/Home';
-import JsonData from "./data/data.json";
 import {BrowserRouter as Router,Routes,Route,Link,Switch } from 'react-router-dom';
 import SignUp from './components/sharedComponents/Auth/SignUp';
 import LostPss from './components/sharedComponents/Auth/LostPss';
@@ -46,7 +45,7 @@ function App() {
 
   return (
     <div className={style}>
-      {userType=== 'admin'? <SideBar /> :<NavBar /> }
+      {userType=== 'admin'? <SideBar/> :<NavBar /> }
       
       {/* <button onClick={logout} >log out</button>
       <p>

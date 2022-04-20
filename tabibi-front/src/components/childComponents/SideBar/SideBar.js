@@ -5,7 +5,7 @@ import { GiHouseKeys } from "react-icons/gi";
 import "./SideBar.css";
 function SideBar() {
   return (
-    <div className='sideBar-container col-2 bg-white navbar-light shadow-sm'>
+    <div className='sideBar-container d-none d-lg-block col-2 bg-white navbar-light shadow-sm'>
         <div className='sideBar-content'>
           <a href="index.html" className="navbar-brand d-flex align-items-center justify-content-center">
               <h2 className="m-0 text-primary">TABIBI</h2>

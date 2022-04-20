@@ -1,0 +1,21 @@
+.widgetSmImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.widgetSmButton{
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    padding: 7px 10px;
+    background-color: #eeeef7;
+    color: red;
+    cursor: pointer;
+}
+.display-btn{
+    background-color: #67A0D4;
+    color: white;
+}

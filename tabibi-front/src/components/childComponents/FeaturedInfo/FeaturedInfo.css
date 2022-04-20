@@ -75,7 +75,7 @@
 .border-left-bl {
     border-left: 0.25rem solid  #4F97E3 !important;
 }
-.card:hover{
+.FeaturedInfo-container .card:hover{
     cursor: pointer;
     transform: translate3d(0, -5px, 0);
     box-shadow: 0 2rem 5rem 0 rgba(0, 0, 0, .1);
