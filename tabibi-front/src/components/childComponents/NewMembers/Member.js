@@ -8,15 +8,15 @@ function Member({name,type,img}) {
               <img
                 src={img}
                 alt=""
-                className="widgetSmImg"
+                className="widgetSmImg "
               />
               <div className="ms-4">
                 <div className="h5 mb-0">{name}</div>
-                <div class="text-xs text-muted ">{type}</div>
+                <div className="text-xs text-muted ">{type}</div>
               </div>
             </div>
             <div className="ms-4 small">
-              <button type="button" class="d-flex align-items-center btn display-btn btn-sm"><MdVisibility className='me-2'/> Display</button>
+              <button type="button" className="d-flex align-items-center btn display-btn btn-sm"><MdVisibility className='me-2'/> Display</button>
             </div>
           </div>
   )

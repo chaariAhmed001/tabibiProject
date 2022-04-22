@@ -16,13 +16,13 @@ function DoughnutChart() {
     plugins:{legend:{display:true}},
   }
   return (
-    <div class="col-xl-4 col-lg-5">
-      <div class="card shadow mb-4">   
+    <div className="col-xl-4 col-lg-5">
+      <div className="card shadow mb-4">   
         <div className="card-header py-3">
           <h6 className="m-0 font-weight-bold text-primary">Users</h6>
         </div>                            
-        <div class="card-body">
-          <div class="chart-pie pt-4 pb-2">
+        <div className="card-body">
+          <div className="chart-pie pt-4 pb-2">
               <Doughnut data={data} options={options}/>
           </div>
         </div>

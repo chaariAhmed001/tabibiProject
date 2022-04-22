@@ -22,6 +22,8 @@ export class Doctor {
     education : Education;
     @Prop({required:true})
     email: String;
+    @Prop({required:true})
+    crated: Date;
 }
 
 export const DoctorSchema = SchemaFactory.createForClass(Doctor)

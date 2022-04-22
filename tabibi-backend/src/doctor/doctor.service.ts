@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { doc } from 'prettier';
 import { User } from 'src/user/schemas/user.schema';
 import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
@@ -11,10 +12,35 @@ export class DoctorService {
     constructor(@InjectModel('Doctor') private readonly doctorModel: Model<Doctor>,
     private readonly userService: UserService
   ) { }
-  async getOne(email): Promise<Doctor> {
-    return await this.doctorModel.findOne({ email }).exec();
+  async getOne(email){
+    return {
+      'doctor': await this.doctorModel.findOne({ email }).exec(),
+      'user':await this.userService.getOne(email)
+    }
   }
+  async getAllDoctors() {
+    const doctors =await this.doctorModel.find().exec();
+    let doc =[];
+    doctors.forEach((element)=>{
+      let user = this.getOne(element.email)
+      doc.push(user)
+      console.log(doc)
+    })
+    return doc;
+  }
+  async getToDayDoctors(): Promise<Doctor[]> {
+    let todayDoctors=[];
+    const today = new Date
+    const doctors =await this.doctorModel.find().exec();
+    doctors.forEach(element => {
+      if(element.crated.getDay() === today.getDay() && element.crated.getMonth() === today.getMonth() && element.crated.getFullYear() === today.getFullYear())
+      {
+        todayDoctors.push(element);
 
+      }
+    });
+    return todayDoctors
+}
   async createDoctor(doctor : Doctor): Promise<Doctor> {
       const reqBody = {
         speciality: doctor.speciality,
@@ -25,6 +51,7 @@ export class DoctorService {
         generalDes : doctor.generalDes,
         detailDes: doctor.detailDes,
         email: doctor.email,
+        crated: doctor.crated
       }
       //const foundDoctor = await this.doctorModel.findOne({ email: doctor.email }).exec();
         const newDoctor = new this.doctorModel(reqBody);
@@ -38,6 +65,7 @@ export class DoctorService {
         .exec();
       return post;
     }
+
     async updateDoctor(docId, doctor : Doctor): Promise<Doctor> {
       const updateDoc = await this.doctorModel
         .findByIdAndUpdate(docId, doctor, { new: true });

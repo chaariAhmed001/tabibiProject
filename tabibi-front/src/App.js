@@ -21,6 +21,8 @@ import DoctorProfil from './components/sharedComponents/Doctor/DoctorProfil';
 import DoctorUpdate from './components/sharedComponents/Doctor/DoctorUpdate';
 import SideBar from './components/childComponents/SideBar/SideBar';
 import Dashbourd from './components/sharedComponents/Dashboard/Dashbourd';
+import Users from './components/sharedComponents/Admin/Users';
+import Doctors from './components/sharedComponents/Admin/Doctors';
 
 
 function App() {
@@ -70,6 +72,8 @@ function App() {
             <Route path='/doctorupdate' element={ <DoctorUpdate/> } />
             <Route path='/LandlodSignUp' element={ <LandlodSignUp user={user}/> } />
             <Route path='/dashbourd' element={ <Dashbourd /> } />
+            <Route path='/users' element={ <Users /> } />
+            <Route path='/doctors' element={ <Doctors /> } />
             
           </Routes>
       </Router>

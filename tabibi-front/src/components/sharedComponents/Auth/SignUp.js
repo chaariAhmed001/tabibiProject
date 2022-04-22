@@ -21,6 +21,7 @@ function SignUp() {
           email: data.get('email'),
           password: data.get('password'),
           type: data.get('selectType'),
+          crated: new Date
         });
         console.log(data.get('selectType'))
         console.log(data)

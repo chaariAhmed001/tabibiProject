@@ -49,6 +49,15 @@ export class UserController {
             users
         })
     }
+    @Get('/todayUsers')
+    async getToDayUsers(@Res() response) {
+        const users = await this.userService.getDayUsers();
+        const date = new Date;
+        return response.status(HttpStatus.OK).json({
+            date : date.getFullYear() , 
+            users
+        })
+    }
     
     @Get()
    async getUser(@Session() session) {

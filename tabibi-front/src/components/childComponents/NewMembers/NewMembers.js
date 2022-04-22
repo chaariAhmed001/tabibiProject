@@ -9,12 +9,12 @@ function NewMembers() {
           <h6 className="m-0 font-weight-bold text-primary">New Join Members</h6>
         </div>                            
         <div className="card-body px-0">
-          <Member name='Ines Kamoun' type='Doctor' img='https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500'/>
-          <Member name='Ines Kamoun' type='Doctor' img='https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500'/>
-          <Member name='Ines Kamoun' type='Doctor' img='https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500'/>
-          <Member name='Ines Kamoun' type='Doctor' img='https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500'/>
-          <Member name='Ines Kamoun' type='Doctor' img='https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500'/>
-          <Member name='Ines Kamoun' type='Doctor' img='https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500'/>
+          <Member name='Ines Kamoun' type='Doctor' img='img/wichList/doctor1.jpg'/>
+          <Member name='Ines Kamoun' type='Doctor' img='img/wichList/doctor1.jpg'/>
+          <Member name='Ines Kamoun' type='Doctor' img='img/wichList/doctor1.jpg'/>
+          <Member name='Ines Kamoun' type='Doctor' img='img/wichList/doctor1.jpg'/>
+          <Member name='Ines Kamoun' type='Doctor' img='img/wichList/doctor1.jpg'/>
+          <Member name='Ines Kamoun' type='Doctor' img='img/wichList/doctor1.jpg'/>
           
         </div>
       </div>

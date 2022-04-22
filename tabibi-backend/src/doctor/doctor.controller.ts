@@ -13,7 +13,11 @@ import { ValidateObjectId } from 'src/blog/shared/pipes/validate-object-id.pipes
 export class DoctorController {
     constructor(private readonly doctorService: DoctorService, 
     ){}
-
+    @Get('findDoc/:email')
+    async getUserType(@Param('email') email) {
+      const res = this.doctorService.getOne(email);
+      return res;
+    }
     @Post('/signUp')
     @UseInterceptors(FileInterceptor('profilImg', 
     {
@@ -37,13 +41,27 @@ export class DoctorController {
        newdoc.cabinetAddress=doctor.cabinetAddress;
        newdoc.generalDes =doctor.generalDes;
        newdoc.detailDes=doctor.detailDes;
+       newdoc.crated=doctor.crated;
 
         const result = await this.doctorService.createDoctor(newdoc);
          return response.status(HttpStatus.CREATED).json({
              result,
         })
     }
-
+    @Get('/doctors')
+    async fetchAll(@Res() response) {
+        const res = await this.doctorService.getAllDoctors();
+        return response.status(HttpStatus.OK).json({
+            res
+        })
+    }
+    @Get('/todayDoctors')
+    async getToDayUsers(@Res() response) {
+        const doctors = await this.doctorService.getToDayDoctors();
+        return response.status(HttpStatus.OK).json({
+            doctors
+        })
+    }
     @Get(':docId')
     async getDoctor(@Res() res, @Param('docId', new ValidateObjectId()) docId) {
         const doctor = await this.doctorService.getDoctor(docId);
@@ -53,19 +71,16 @@ export class DoctorController {
         return res.status(HttpStatus.OK).json(doctor);
     }
     
-    // @Get('doc/:email')
-    // async getDoctorByEmail(@Res() res,@Param() docEmail){
-    //     const doctor =  await this.doctorService.getOne(docEmail);
-    //     if (!doctor) {
-    //         throw new NotFoundException('Doctor does not exist!');
-    //     }
+    //  @Get('doctor/:email')
+    //  async getDoctorByEmail(@Res() res,@Param() docEmail){
+    //      const doctor =  await this.doctorService.getOne(docEmail);
+    //      if (!doctor) {
+    //          throw new NotFoundException('Doctor does not exist!');
+    //      }
     //     return res.status(HttpStatus.OK).json(doctor);
-    // }
-    @Get('findDoc/:email')
-  async getUserType(@Param('email') email) {
-    const res = this.doctorService.getOne(email);
-    return res;
-  }
+    //  }
+   
+  
   @Put('/update/:id')
   @UseInterceptors(FileInterceptor('profilImg', 
     {
@@ -89,5 +104,5 @@ export class DoctorController {
       doctor: updateDoc,
     });
   }
-
+  
 }

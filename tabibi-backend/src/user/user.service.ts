@@ -22,18 +22,20 @@ export class UserService {
           fullname: user.fullname,
           email: user.email,
           password: hash,
-          type: user.type
+          type: user.type,
+          crated:user.crated
       }
       const foundUser = await this.userModel.findOne({ email: user.email }).exec();
       if(!foundUser){
         const newUser = new this.userModel(reqBody);
+        
         return newUser.save();
       }
        else if(reqBody.type === '')
         throw new HttpException('specify your account type', HttpStatus.UNAUTHORIZED);
       else
       throw new HttpException('Email is already in use ', HttpStatus.UNAUTHORIZED);
-      
+     
       
     }
     async getOne(email): Promise<User> {
@@ -73,6 +75,19 @@ export class UserService {
     async readAll(): Promise<User[]> {
       return await this.userModel.find().exec();
   }
+  async getDayUsers(): Promise<User[]> {
+    let todayUsers=[];
+    const today = new Date
+    const users =await this.userModel.find().exec();
+    users.forEach(element => {
+      if(element.crated.getDay() === today.getDay() && element.crated.getMonth() === today.getMonth() && element.crated.getFullYear() === today.getFullYear())
+      {
+      todayUsers.push(element);
+
+      }
+    });
+    return todayUsers
+}
   async delete(id): Promise<any> {
     return await this.userModel.findByIdAndRemove(id);
   }

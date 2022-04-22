@@ -367,7 +367,7 @@ h6,
     background-color: var(--dark);
 }
 .single-department .thumb .count.bg-4{
-    background-color: #4F97E3;;
+    background-color: #4F97E3;
 }
 
 /* Home Page Doctor Section style  */
@@ -427,4 +427,3 @@ h6,
     height: 600px;
     object-fit: cover;
 }
-

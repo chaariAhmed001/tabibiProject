@@ -17,6 +17,7 @@ function DoctorSignUp() {
     data.append('education[diplome]',data.get('diplome'));
     data.append('education[university]',data.get('university'));
     data.append('education[year]',data.get('year'));
+    data.append('crated',new Date);
     console.log( data.get('cabinetAddress'))
     await axios.post("http://localhost:5000/doctor/signUp", data); 
     setRedirect(true);
