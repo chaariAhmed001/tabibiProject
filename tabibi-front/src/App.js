@@ -21,8 +21,9 @@ import DoctorProfil from './components/sharedComponents/Doctor/DoctorProfil';
 import DoctorUpdate from './components/sharedComponents/Doctor/DoctorUpdate';
 import SideBar from './components/childComponents/SideBar/SideBar';
 import Dashbourd from './components/sharedComponents/Dashboard/Dashbourd';
-import Users from './components/sharedComponents/Admin/Users';
-import Doctors from './components/sharedComponents/Admin/Doctors';
+import Users from './components/sharedComponents/Admin/AllUsers/Users';
+import Doctors from './components/sharedComponents/Admin/AllUsers/Doctors';
+import User from './components/sharedComponents/Admin/User/User';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
   const [style, setStyle] = useState('');
 
   useEffect(() => {
-    userType=== 'admin' ? setStyle('d-flex'):setStyle('')
+    userType=== 'admin' ? setStyle('d-lg-flex d-block'):setStyle('')
   }, [])
   
   const logout = async () => {
@@ -74,6 +75,8 @@ function App() {
             <Route path='/dashbourd' element={ <Dashbourd /> } />
             <Route path='/users' element={ <Users /> } />
             <Route path='/doctors' element={ <Doctors /> } />
+            <Route path='/user' element={ <User /> } />
+            
             
           </Routes>
       </Router>

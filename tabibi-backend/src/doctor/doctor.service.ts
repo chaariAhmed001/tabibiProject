@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import console from 'console';
 import { Model } from 'mongoose';
 import { doc } from 'prettier';
 import { User } from 'src/user/schemas/user.schema';
@@ -19,14 +20,12 @@ export class DoctorService {
     }
   }
   async getAllDoctors() {
-    const doctors =await this.doctorModel.find().exec();
-    let doc =[];
-    doctors.forEach((element)=>{
-      let user = this.getOne(element.email)
-      doc.push(user)
-      console.log(doc)
+    return await this.doctorModel.find().exec();
+    /*let all;
+    doctors.forEach((doc,index)=>{
+      this.getOne(doc.email).then(res =>all+={ index: res})
     })
-    return doc;
+    return all*/
   }
   async getToDayDoctors(): Promise<Doctor[]> {
     let todayDoctors=[];
@@ -71,5 +70,7 @@ export class DoctorService {
         .findByIdAndUpdate(docId, doctor, { new: true });
       return updateDoc;
     }
-    
+    async delete(id): Promise<any> {
+      return await this.doctorModel.findByIdAndRemove(id);
+    }
 }

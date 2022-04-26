@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, NotFoundException, Param, Post, Put, Query, Request, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put, Query, Request, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import path = require('path');
@@ -104,5 +104,11 @@ export class DoctorController {
       doctor: updateDoc,
     });
   }
-  
+  @Delete('/:id')
+    async delete(@Res() response, @Param('id') id) {
+        const deletedDoc = await this.doctorService.delete(id);
+        return response.status(HttpStatus.OK).json({
+            deletedDoc
+        })
+    }
 }
