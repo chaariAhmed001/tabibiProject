@@ -1,0 +1,15 @@
+.doctor-pres {
+    display: flex;
+    align-items: center;
+  }
+  
+  .doctorImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }  
+  .icon{
+      font-size: 20px !important;
+      color: var(--primary);
+  }

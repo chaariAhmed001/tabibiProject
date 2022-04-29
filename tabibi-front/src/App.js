@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Footer from './components/childComponents/Footer';
-//import Header from './components/childComponents/Header';
 import NavBar from './components/childComponents/NavBar';
 import AboutUs from './components/sharedComponents/AboutUs/AboutUs';
 import LogIn from './components/sharedComponents/Auth/LogIn';
@@ -23,7 +22,7 @@ import SideBar from './components/childComponents/SideBar/SideBar';
 import Dashbourd from './components/sharedComponents/Dashboard/Dashbourd';
 import Users from './components/sharedComponents/Admin/AllUsers/Users';
 import Doctors from './components/sharedComponents/Admin/AllUsers/Doctors';
-import User from './components/sharedComponents/Admin/User/User';
+import Doctor from './components/sharedComponents/Admin/User/Doctor';
 
 
 function App() {
@@ -75,7 +74,8 @@ function App() {
             <Route path='/dashbourd' element={ <Dashbourd /> } />
             <Route path='/users' element={ <Users /> } />
             <Route path='/doctors' element={ <Doctors /> } />
-            <Route path='/user' element={ <User /> } />
+            <Route path='/doctor/:id' element={ <Doctor /> } />
+           
             
             
           </Routes>
