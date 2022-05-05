@@ -3,7 +3,7 @@ import './FeaturedInfo.css'
 function FeaturedInfo({icon,title,nbTody,nbTotal,color}) {
   return (
     <div className="col-xl-3 col-md-6 mb-4 my-4">
-        <div className={`card border-left-${color} shadow`}>
+        <div className={`card border-left-${color}`}>
             <div className="card-body">
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-2">

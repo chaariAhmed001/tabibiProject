@@ -18,8 +18,6 @@ function Doctors() {
     useEffect(() => {
         getDoctors();
     },[]);
-    console.log(doctors)
-    
         const handleDelete = async(id) => {
             //console.log(id)
             /*await axios.delete("http://localhost:5000/doctor/"+id)
@@ -55,8 +53,9 @@ function Doctors() {
                         <th scope="row">{index}</th>
                         <td>
                             <div className="d-flex align-items-center">
+                            {/* <img src={require('../../../../Imges/price-1.jpg')} height={200} width={200} /> */}
                                 <img
-                                    src= {`doctorProfilImg/${doc.profilImg}`}
+                                    src= {require(`../../../../Imges/doctorProfilImg/${doc.profilImg}`)}
                                     alt=""
                                     style={{width:45,height:45 , objectFit:'cover'}}
                                     className="rounded-circle "

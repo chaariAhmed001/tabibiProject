@@ -13,11 +13,18 @@ export class DoctorService {
     constructor(@InjectModel('Doctor') private readonly doctorModel: Model<Doctor>,
     private readonly userService: UserService
   ) { }
-  async getOne(email){
+  async getOne(id){
+    const doctor =await this.doctorModel.findOne({ id }).exec()
+    const user = await this.userService.getOne(doctor.email);
     return {
-      'doctor': await this.doctorModel.findOne({ email }).exec(),
-      'user':await this.userService.getOne(email)
+      doctor: doctor,
+      user: user
     }
+  }
+  async getUser(email){
+    
+    const user = await this.userService.getOne(email);
+    return user
   }
   async getAllDoctors() {
     return await this.doctorModel.find().exec();

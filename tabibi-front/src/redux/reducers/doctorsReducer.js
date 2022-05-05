@@ -12,3 +12,14 @@ export const doctorReducer = (state=intialState, { type, payload }) => {
       return state;
   }
 };
+
+export const selectedDoctorReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case ActionTypes.SELECTED_DOCTOR:
+      return { ...state, ...payload };
+    case ActionTypes.REMOVE_SELECTED_DOCTOR:
+      return {};
+    default:
+      return state;
+  }
+};

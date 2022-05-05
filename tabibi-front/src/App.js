@@ -71,7 +71,7 @@ function App() {
             <Route path='/doctorProfil' element={ <DoctorProfil user={user}/> } />
             <Route path='/doctorupdate' element={ <DoctorUpdate/> } />
             <Route path='/LandlodSignUp' element={ <LandlodSignUp user={user}/> } />
-            <Route path='/dashbourd' element={ <Dashbourd /> } />
+            <Route path='dashbourd' element={ <Dashbourd /> } />
             <Route path='/users' element={ <Users /> } />
             <Route path='/doctors' element={ <Doctors /> } />
             <Route path='/doctor/:id' element={ <Doctor /> } />

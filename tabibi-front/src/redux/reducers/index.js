@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { doctorReducer } from "./doctorsReducer";
+import { doctorReducer, selectedDoctorReducer } from "./doctorsReducer";
 const reducers = combineReducers({
   allDoctors: doctorReducer,
-  
+  doctor: selectedDoctorReducer,
 });
 export default reducers;

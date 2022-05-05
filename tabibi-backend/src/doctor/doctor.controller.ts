@@ -13,16 +13,21 @@ import { ValidateObjectId } from 'src/blog/shared/pipes/validate-object-id.pipes
 export class DoctorController {
     constructor(private readonly doctorService: DoctorService, 
     ){}
-    @Get('findDoc/:email')
-    async getUserType(@Param('email') email) {
-      const res = this.doctorService.getOne(email);
+    @Get('findDoc/:id')
+    async getUserType(@Param('id') id) {
+      const res = this.doctorService.getOne(id);
+      return res;
+    }
+    @Get('findUser/:email')
+    async getUser(@Param('email') email) {
+      const res = this.doctorService.getUser(email);
       return res;
     }
     @Post('/signUp')
     @UseInterceptors(FileInterceptor('profilImg', 
     {
         storage: diskStorage({
-            destination: 'C:/Bohmid/Tabibi/tabibi-front/public/doctorProfilImg',
+            destination: 'C:/Bohmid/Tabibi/tabibi-front/src/Imges/doctorProfilImg',
              filename: (req, file, cb) => {
                  cb(null, `${file.originalname}`)
              }
@@ -85,7 +90,7 @@ export class DoctorController {
   @UseInterceptors(FileInterceptor('profilImg', 
     {
         storage: diskStorage({
-            destination: 'C:/Bohmid/Tabibi/tabibi-front/public/doctorProfilImg',
+            destination: 'C:/Bohmid/Tabibi/tabibi-front/src/Imges/doctorProfilImg',
              filename: (req, file, cb) => {
                  cb(null, `${file.originalname}`)
              }

@@ -9,13 +9,12 @@
     border: 1px solid #e3e6f0;
     border-radius: 0.35rem;
 }
-.shadow {
-    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
-}
+
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
     padding: 1.25rem;
+    
 }
   
 .card-title {
@@ -75,9 +74,9 @@
 .border-left-bl {
     border-left: 0.25rem solid  #4F97E3 !important;
 }
-.FeaturedInfo-container .card:hover{
+/* .FeaturedInfo-container .card:hover{
     cursor: pointer;
     transform: translate3d(0, -5px, 0);
-    box-shadow: 0 2rem 5rem 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2rem 5rem 0 rgba(0, 0, 0, .1); 
     background-color: #f5f8fa;
-}
+} */

@@ -9,11 +9,11 @@ export const setDoctors = (doctors) => {
 
 export const selectedDoctor = (doctor) => {
   return {
-    type: ActionTypes.SELECTED_DOCOTOR,
+    type: ActionTypes.SELECTED_DOCTOR,
     payload: doctor,
   };
 };
-export const removeSelectedProduct = () => {
+export const removeSelectedDoctor = () => {
   return {
     type: ActionTypes.REMOVE_SELECTED_DOCTOR,
   };
