@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function SelectUser({name,elements}) {
+function SelectUser({name,elements,defaultValue}) {
     
   return (
     

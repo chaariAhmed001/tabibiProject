@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Doctor.css'
 import { GiDiploma, GiSkills } from 'react-icons/gi';
-import { MdEmail, MdMapsHomeWork, MdSmartphone } from "react-icons/md";
+import { MdEmail, MdMapsHomeWork, MdSmartphone ,MdOutlineKeyboardBackspace, MdAddBox} from "react-icons/md";
 import Input from '../../../childComponents/Form/Input';
 import SelectUser from '../../../childComponents/Form/SelectUser';
 import FormButton from '../../../childComponents/Form/FormButton';
@@ -13,24 +13,21 @@ import {selectedDoctor ,removeSelectedDoctor} from "../../../../redux/actions/do
 function Doctor() {
   const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
   const [message, setMessage] = useState('');
-  const location = useLocation();
+  const [result, setResult] = useState();
   const navigate = useNavigate();
   let params = useParams();
   let doctor = useSelector((state) => state.doctor);
-
+  const img=(doctor.doctor&&doctor.doctor.profilImg)
   
   const dispatch = useDispatch();
-  
-  
-  
-const getDoctor = async (params) => {
+  const getDoctor = async (params) => {
     const response = await axios
       .get(`http://localhost:5000/doctor/findDoc/${params}`)
       .catch((err) => {
         console.log("Err: ", err);
       });   
       dispatch(selectedDoctor(response.data));
-  };
+    };
 
   useEffect(() => {
     if (params && params !== "") getDoctor(params);
@@ -39,8 +36,34 @@ const getDoctor = async (params) => {
       };
   }, [params]);
   
-  const handleSubmit = async (event)=>{}
-  
+  const handleSubmit = async (event)=>{
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    let imgUrl;
+    if(data.get('profilImg').name ===''){
+      imgUrl = doctor.doctor && doctor.doctor.profilImg;
+    }
+    else {imgUrl= data.get('profilImg').name;}
+    data.append('profilImg',imgUrl);
+    data.append('education[diplome]',data.get('diplome'));
+    data.append('education[university]',data.get('university'));
+    data.append('education[year]',data.get('year'));
+    const form = {
+        fullname : data.get('fullname'),
+        email: data.get('email')
+      };
+    // data.append('diplome ',data.get('diplome'));
+    
+    setResult(await axios.put("http://localhost:5000/doctor/update/"+doctor.doctor._id, data));
+    setResult( await axios.put("http://localhost:5000/user/update/"+doctor.user._id,form));
+    
+    if(result.data.message==='User has been successfully updated'){
+        navigate(-1);
+        //setMessage(result.data.message) 
+    }else 
+    setMessage(result.data.message) 
+  }
+//   console.log(doctor.doctor && doctor.doctor.profilImg )
   
     return (
         <div className="doctor-container col-10 p-2">
@@ -49,15 +72,18 @@ const getDoctor = async (params) => {
                     <div className='col-auto mb-3'>
                         <h5 className="pageTitle my-4"><i className="fa fa-user-md me-1"></i>Edit Doctor</h5>
                     </div>
-                    <div className="col-12 col-xl-auto mb-3">
-                        <a className="btn btn-sm btn-light text-primary ms-5 " href="#" onClick={() => {navigate(-1)}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="n[one" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+
+                    <div className="col-12 col-xl-auto mb-3 d-felx justify-content-center align-items-center">
+                        <a className="btn btn-sm btn-light text-primary " href="#" onClick={() => {navigate('/doctorSignup')}}>
+                            <MdAddBox  style={{fontSize: 20 ,marginRight: 3, marginBottom:3}}/>
+                            Add Doctor
+                        </a>
+                        <a className="btn btn-sm btn-light text-primary ms-2" href="#" onClick={() => {navigate(-1)}}>
+                            <MdOutlineKeyboardBackspace style={{fontSize: 20 , marginRight: 3,marginBottom:3}}/>
                             Back to Doctors List
-                            
                         </a>
                     </div>
                 </div>
-                {/* <img src={require('../../../../Imges/price-1.jpg')} height={200} width={200} /> */}
                 <div className='row'>
                     <div className='col-xl-5 mb-4'>
                         <div className="card shadow ">
@@ -67,8 +93,9 @@ const getDoctor = async (params) => {
                             <div className="card-body">                              
                                 <div className="doctorProfil-container">
                                     <div className="doctor-pres">
+                                    {/* src= {require(`../../../../Imges/doctorProfilImg/${doc.profilImg}`)} */}
                                         <img 
-                                        src={require('../../../../Imges/doctorProfilImg/doc2.jpg')}
+                                         src= {img ===undefined? '' : require(`../../../../Imges/doctorProfilImg/${img}`)}
                                         alt="doctr Image"
                                         className="doctorImg"
                                         />
@@ -106,7 +133,7 @@ const getDoctor = async (params) => {
                                             </div>
                                             <div className='doctor-phoneNumber'>
                                                 <MdMapsHomeWork className='icon me-1'/>
-                                                {doctor.doctor && doctor.doctor.adress }
+                                                {doctor.doctor && doctor.doctor.cabinetAddress }
                                             </div>
                                         </div>
                                     </div>
@@ -125,22 +152,31 @@ const getDoctor = async (params) => {
                                 <form  onSubmit={handleSubmit} encType="multipart/form-data">
                                     <div className='mb-3'>
                                         <label className="small mb-1" htmlFor="inputUsername">FullName</label>
-                                        <Input type='text' name='fullName' placeholder="Your fullName" className='col-12'/>
+                                        <Input type='text' name='fullname' placeholder="Your fullName" className='col-12' defaultValue={doctor.user && doctor.user.fullname }/>
                                     </div>
                                     <div className="row gx-3 mb-3">
                                         <div className="col-md-6">
                                             <label className="small mb-1" htmlFor="inputUsername">Phone Number</label>
-                                            <Input type='number' name='phoneNb' placeholder="Phone number..." className='pb-3'/>
+                                            <Input type='number' name='phoneNumber' placeholder="Phone number..." className='pb-3' defaultValue={doctor.doctor && doctor.doctor.phoneNumber }/>
                                         </div>
                                         <div className="col-md-6">
                                             <label className="small mb-1" htmlFor="inputUsername">Cabinet Address</label>
-                                            <Input type='text' name='cabinetAddress' placeholder="Cabinet Address..." className='pb-3'/>
+                                            <Input type='text' name='cabinetAddress' placeholder="Cabinet Address..." className='pb-3' defaultValue={doctor.doctor && doctor.doctor.cabinetAddress }/>
                                         </div>
                                     </div>
                                     <div className="row gx-3 ">
                                         <div className="col-md-6">
                                             <label className="small mb-1" htmlFor="inputUsername">Speciality</label>
-                                            <SelectUser name='speciality' elements={specialitys} className='pb-3'/>
+                                            <div className='m-auto '>
+                                                <select className="form-select m-auto mb-4 border bg-light px-4" aria-label="Default select example" name='speciality' required>
+                                                    <option defaultValue>{doctor.doctor && doctor.doctor.speciality}</option>
+                                                    {
+                                                    specialitys.map((speciality,index,specialitys) => 
+                                                        <option value={speciality} key={index} >{speciality}</option>
+                                                    )                          
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                         <div className="col-md-6">
                                             <label className="small mb-1" htmlFor="inputUsername">Profil Image</label>
@@ -149,19 +185,21 @@ const getDoctor = async (params) => {
                                     </div>
                                     <div className='mb-3'>
                                         <label className="small mb-1" htmlFor="inputUsername">Email address</label>
-                                        <Input type='email' name='email' placeholder="Your eamil" className='pb-3'/>
+                                        <Input type='email' name='email' placeholder="Your eamil" className='pb-3' defaultValue={doctor.doctor && doctor.doctor.email }/>
                                     </div>
                                     
                                     <div className="row gx-3 ">
                                         <div className="col-md-6">
                                             <label className="small mb-1" htmlFor="inputUsername">Doctor Description</label>
-                                            <textarea className="form-control border bg-light px-4" name='generalDes' id="exampleFormControlTextarea1" rows="5"></textarea>
+                                            <textarea className="form-control border bg-light px-4" name='generalDes' id="exampleFormControlTextarea1" rows="5" defaultValue={doctor.doctor && doctor.doctor.generalDes }></textarea>
                                         </div>
                                         <div className="col-md-6">
                                         <label className="small mb-1" htmlFor="inputUsername">Diplom</label>
-                                        <Input type='text' name='diplome' placeholder="Degree..." className='pb-3' />
-                                        <Input type='text' name='university' placeholder="university..." className='pb-3' />
-                                        <Input type='date' name='year' className='pb-3'/>
+                                        <div className="m-auto pb-4">
+                                            <input type="text" name='diplome' className="form-control border bg-light px-4" placeholder="Degree" required defaultValue={doctor.doctor && doctor.doctor.education && doctor.doctor.education.diplome} />
+                                        </div>
+                                        <Input type='text' name='university' placeholder="university..." className='pb-3' defaultValue={doctor.doctor && doctor.doctor.education && doctor.doctor.education.university} />
+                                        <Input type='date' name='year' className='pb-3' defaultValue={doctor.doctor && doctor.doctor.education && doctor.doctor.education.year}/>
                                         </div>
                                     </div>
                                     <p className='text-center'>{message}</p>

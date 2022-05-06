@@ -23,6 +23,7 @@ import Dashbourd from './components/sharedComponents/Dashboard/Dashbourd';
 import Users from './components/sharedComponents/Admin/AllUsers/Users';
 import Doctors from './components/sharedComponents/Admin/AllUsers/Doctors';
 import Doctor from './components/sharedComponents/Admin/User/Doctor';
+import DoctorAdd from './components/sharedComponents/Admin/User/DoctorAdd';
 
 
 function App() {
@@ -75,7 +76,7 @@ function App() {
             <Route path='/users' element={ <Users /> } />
             <Route path='/doctors' element={ <Doctors /> } />
             <Route path='/doctor/:id' element={ <Doctor /> } />
-           
+            <Route path='/doctorAdd' element={ <DoctorAdd /> }/>
             
             
           </Routes>
