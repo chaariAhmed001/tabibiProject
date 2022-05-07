@@ -13,7 +13,7 @@ function Users() {
             getUsers();
            },100)
         return()=>clearInterval(interval)
-        console.log(users);
+        
 
     },[]);
     const deleteUser = (id)=>{

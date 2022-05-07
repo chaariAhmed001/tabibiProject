@@ -74,7 +74,7 @@ function Doctor() {
                     </div>
 
                     <div className="col-12 col-xl-auto mb-3 d-felx justify-content-center align-items-center">
-                        <a className="btn btn-sm btn-light text-primary " href="#" onClick={() => {navigate('/doctorSignup')}}>
+                        <a className="btn btn-sm btn-light text-primary " href="#" onClick={() => {navigate('/doctorAdd')}}>
                             <MdAddBox  style={{fontSize: 20 ,marginRight: 3, marginBottom:3}}/>
                             Add Doctor
                         </a>

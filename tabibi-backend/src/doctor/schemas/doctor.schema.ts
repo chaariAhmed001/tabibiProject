@@ -16,7 +16,7 @@ export class Doctor {
     cabinetAddress : String;
     @Prop({required:true})
     generalDes: String;
-    @Prop({required:true})
+    @Prop()
     detailDes : String;
     @Prop({required:true})
     education : Education;

@@ -18,7 +18,7 @@ function DoctorSignUp() {
     data.append('education[university]',data.get('university'));
     data.append('education[year]',data.get('year'));
     data.append('crated',new Date);
-    console.log( data.get('cabinetAddress'))
+   
     await axios.post("http://localhost:5000/doctor/signUp", data); 
     setRedirect(true);
   };
@@ -46,7 +46,7 @@ function DoctorSignUp() {
                                   )                          
                                   }
                               </select>
-                            </div>
+                          </div>
                             <div className="m-auto pb-4">
                                 <input type="number" name='phoneNb' className="form-control border bg-light px-4" placeholder="Phone number..." required />
                             </div>

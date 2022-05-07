@@ -13,6 +13,7 @@ import { ValidateObjectId } from 'src/blog/shared/pipes/validate-object-id.pipes
 export class DoctorController {
     constructor(private readonly doctorService: DoctorService, 
     ){}
+    
     @Get('findDoc/:id')
     async getUserType(@Param('id') id) {
       const res = this.doctorService.getOne(id);
@@ -23,6 +24,7 @@ export class DoctorController {
       const res = this.doctorService.getUser(email);
       return res;
     }
+    
     @Post('/signUp')
     @UseInterceptors(FileInterceptor('profilImg', 
     {
@@ -66,6 +68,11 @@ export class DoctorController {
         return response.status(HttpStatus.OK).json({
             doctors
         })
+    }
+    @Get(':email')
+    async getDocByEmail(@Param('email') email) {
+      const res = this.doctorService.getDoctor(email);
+      return res;
     }
     @Get(':docId')
     async getDoctor(@Res() res, @Param('docId', new ValidateObjectId()) docId) {
@@ -116,4 +123,6 @@ export class DoctorController {
             deletedDoc
         })
     }
+
+    
 }

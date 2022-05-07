@@ -41,7 +41,7 @@ function Dashbourd() {
           <DoughnutChart />
         </div>
         <div className='row'>
-          <NewMembers />
+          <NewMembers users={users}/>
           <LatestApp />
         </div>
       </div>

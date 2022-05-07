@@ -4,6 +4,7 @@ import { MdDelete, MdModeEdit } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux'
 import { setDoctors } from "../../../../redux/actions/doctorActions";
+import GetUserName from '../../../childComponents/GetUserName';
 
 function Doctors() {
      //const [doctors, setDoctors] = useState([]);
@@ -47,21 +48,22 @@ function Doctors() {
                     </tr>
                 </thead>
                 <tbody>
-                {
+                {   
                     doctors.map((doc,index) => 
+                    
                     <tr key={index}>
                         <th scope="row">{index}</th>
                         <td>
                             <div className="d-flex align-items-center">
                             {/* <img src={require('../../../../Imges/price-1.jpg')} height={200} width={200} /> */}
                                 <img
-                                    src= {require(`../../../../Imges/doctorProfilImg/${doc.profilImg}`)}
+                                    src= {doc.profilImg=== undefined? '' : require(`../../../../Imges/doctorProfilImg/${doc.profilImg}`)}
                                     alt=""
                                     style={{width:45,height:45 , objectFit:'cover'}}
                                     className="rounded-circle "
                                     />
                                 <div className="ms-3">
-                                <p className="fw-bold mb-1">Chaari Ahmed</p>
+                                    <GetUserName  email={doc.email}/>
                                     <p className="text-muted mb-0">{doc.speciality}</p>
                                 </div>
                             </div>

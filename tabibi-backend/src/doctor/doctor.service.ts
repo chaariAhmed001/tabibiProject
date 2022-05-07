@@ -22,7 +22,6 @@ export class DoctorService {
     }
   }
   async getUser(email){
-    
     const user = await this.userService.getOne(email);
     return user
   }
@@ -65,12 +64,13 @@ export class DoctorService {
       // else
       // throw new HttpException('Doctor is already in use ', HttpStatus.UNAUTHORIZED);   
     }
-    async getDoctor(docId): Promise<Doctor> {
+    async getDoctor(email): Promise<Doctor> {
       const post = await this.doctorModel
-        .findById(docId)
+        .findOne({ email })
         .exec();
       return post;
     }
+    
 
     async updateDoctor(docId, doctor : Doctor): Promise<Doctor> {
       const updateDoc = await this.doctorModel
