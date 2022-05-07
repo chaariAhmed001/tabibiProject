@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2';
 
-function LineChart({color}) {
-
+function LineChart({color,users}) {
+  //console.log(users)
+const [dataa, setDataa] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  
+  const getData = (dataa,users)=>{
+    users.map((data) => {
+    let mounth=data.crated && data.crated.slice(5,7);
+    mounth=(mounth.charAt(0)==='0'?data.crated && data.crated.slice(6,7) :mounth)
+    dataa[mounth]=dataa[mounth]+1;
+    setDataa(dataa)
+  });}
+  useEffect(() => {
+    if (users && users !== "") 
+    getData(dataa,users);
+},[dataa,users]);
     const data = {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [
@@ -20,7 +33,7 @@ function LineChart({color}) {
           pointHitRadius: 10,
           pointBorderWidth: 2,
           fill: true,
-          data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25, 40],
+          data: dataa,
           },
           
         ],

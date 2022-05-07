@@ -37,7 +37,7 @@ function Dashbourd() {
           <FeaturedInfo title='LandLord' nbTody='8' nbTotal='40' icon='fa-home' color='dark' onClick={(e) => setColor("red")}/>
         </div>
         <div className='row'>
-          <LineChart color={color} />
+          <LineChart color={color} users={users}/>
           <DoughnutChart />
         </div>
         <div className='row'>
