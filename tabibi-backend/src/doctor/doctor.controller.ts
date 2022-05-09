@@ -13,12 +13,16 @@ import { ValidateObjectId } from 'src/blog/shared/pipes/validate-object-id.pipes
 export class DoctorController {
     constructor(private readonly doctorService: DoctorService, 
     ){}
-    
-    @Get('findDoc/:id')
-    async getUserType(@Param('id') id) {
-      const res = this.doctorService.getOne(id);
-      return res;
+   
+    @Get('doctor/:docID')
+    async getPost(@Res() res, @Param('docID', new ValidateObjectId()) docID) {
+        const doc = await this.doctorService.getDoc(docID);
+        if (!doc) {
+            throw new NotFoundException('Doctor does not exist!');
+        }
+        return res.status(HttpStatus.OK).json(doc);
     }
+    
     @Get('findUser/:email')
     async getUser(@Param('email') email) {
       const res = this.doctorService.getUser(email);

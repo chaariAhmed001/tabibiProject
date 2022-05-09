@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import FormButton from '../../../childComponents/Form/FormButton';
 import Input from '../../../childComponents/Form/Input'
 
 function DoctorAdd() {
   const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
-    const [result, setResult] = useState()
+    const [result, setResult] = useState();
+    const navigate = useNavigate();
     const handleSubmit = async (event)=>{
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -13,6 +15,8 @@ function DoctorAdd() {
         data.append('education[university]',data.get('university'));
         data.append('education[year]',data.get('year'));
         data.append('crated',new Date);
+        data.append('profilImg',data.get('profilImg').name);
+
         const form = {
             fullname : data.get('fullname'),
             email: data.get('email'),
@@ -20,9 +24,9 @@ function DoctorAdd() {
             type:'Doctor',
             password: data.get('password')
         };
-        setResult(await axios.post("http://localhost:5000/doctor/signUp", data));
-        setResult(await axios.post("http://localhost:5000/user/signup", form));
-        console.log(result)
+         setResult(await axios.post("http://localhost:5000/doctor/signUp", data));
+         setResult(await axios.post("http://localhost:5000/user/signup", form));
+         navigate('/dashbourd')
     }
   return (
     <div className="doctorAdd-container col-10 m-4">
@@ -89,7 +93,7 @@ function DoctorAdd() {
                                     <Input type='date' name='year' className='pb-3'/>
                                 </div>
                             </div>               
-                            <FormButton type='submit' name='Save Changes'/>
+                            <FormButton type='submit' name='Add Doctor'/>
                         </form>
                     </div>
                 </div>

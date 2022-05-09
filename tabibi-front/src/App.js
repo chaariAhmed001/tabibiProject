@@ -33,7 +33,11 @@ function App() {
   const [style, setStyle] = useState('');
 
   useEffect(() => {
-    userType=== 'admin' ? setStyle('d-lg-flex d-block'):setStyle('')
+    (userType=== 'admin') &&
+       (path===(`http://localhost:3000/dashbourd`)||
+        path===('http://localhost:3000/doctors')||
+        path===('http://localhost:3000/doctor')||
+        path===('http://localhost:3000/doctorAdd'))? setStyle('d-lg-flex d-block'):setStyle('')
   }, [])
   
   const logout = async () => {
@@ -45,10 +49,17 @@ function App() {
 
     setUser({});
 }
-
+const path = window.location.href;
+console.log(path)
   return (
     <div className={style}>
-      {userType=== 'admin'? <SideBar/> :<NavBar /> }
+      {(userType=== 'admin') &&
+       (path===(`http://localhost:3000/dashbourd`)||
+        path===('http://localhost:3000/doctors')||
+        path===('http://localhost:3000/doctor')||
+        path===('http://localhost:3000/doctorAdd'))
+        ? <SideBar/> :<NavBar /> 
+        }
       
       {/* <button onClick={logout} >log out</button>
       <p>
@@ -81,7 +92,11 @@ function App() {
             
           </Routes>
       </Router>
-      {userType=== 'admin'? <></> :<Footer /> }
+      {(userType=== 'admin') &&
+       (path===(`http://localhost:3000/dashbourd`)||
+        path===('http://localhost:3000/doctors')||
+        path===('http://localhost:3000/doctor')||
+        path===('http://localhost:3000/doctorAdd'))? <></> :<Footer /> }
       
     </div>
     );

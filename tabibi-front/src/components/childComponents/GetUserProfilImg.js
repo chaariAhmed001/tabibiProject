@@ -18,7 +18,7 @@ function GetUserProfilImg({email,type}) {
       }, [email,profilImg]);
       
   return (
-    <img src= { profilImg==='' ? '':  require(`../../../src/Imges/doctorProfilImg/${profilImg}`)} alt="" className="widgetSmImg " />
+    <img src= { profilImg===''||  profilImg=== undefined? '':  require(`../../../src/Imges/doctorProfilImg/${profilImg}`)} alt="" className="widgetSmImg " />
   )
 }
 

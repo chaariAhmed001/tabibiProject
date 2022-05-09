@@ -3,7 +3,14 @@ import { FaHome,FaUserInjured,FaUserMd } from "react-icons/fa";
 import { IoAnalyticsSharp } from "react-icons/io5";
 import { GiHouseKeys } from "react-icons/gi";
 import "./SideBar.css";
+import { Navigate } from 'react-router-dom'
 function SideBar() {
+  
+  const redirect =(path) =>{
+    <Navigate to='{`/${path}`}'  />
+    
+  }
+
   return (
     <div className='sideBar-container d-none d-lg-block col-2 bg-white navbar-light shadow-sm'>
         <div className='sideBar-content'>
@@ -35,8 +42,11 @@ function SideBar() {
                     Patient
                   </li>
                   <li className="sidebarListItem">
+                    <a href='http://localhost:3000/doctors'>
                     <FaUserMd className="sidebarIcon" />
                     Doctor
+                    </a>
+                    
                   </li>
                   <li className="sidebarListItem">
                     <GiHouseKeys className="sidebarIcon" />

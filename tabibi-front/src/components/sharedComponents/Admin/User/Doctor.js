@@ -21,11 +21,13 @@ function Doctor() {
   
   const dispatch = useDispatch();
   const getDoctor = async (params) => {
+    console.log(params.id)
     const response = await axios
-      .get(`http://localhost:5000/doctor/findDoc/${params}`)
+      .get(`http://localhost:5000/doctor/doctor/${params.id}`)
       .catch((err) => {
         console.log("Err: ", err);
       });   
+      
       dispatch(selectedDoctor(response.data));
     };
 
