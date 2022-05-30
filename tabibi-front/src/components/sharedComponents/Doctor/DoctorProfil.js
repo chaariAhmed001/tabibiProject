@@ -10,7 +10,7 @@ function DoctorProfil(props) {
   const [doctor, setDoctor] = useState({});
   console.log("aaaa")
   console.log(props);
-  /*useEffect(() => {
+  useEffect(() => {
           const getDoc=async () => {
           setDoctor(await (await axios.get("http://localhost:5000/doctor/findDoc/"+props.user.email)).data);
           }
@@ -29,7 +29,7 @@ function DoctorProfil(props) {
           
         }
     )();
-},[user]);*/
+},[user]);
   const update = ()=>{
     //elam'/doctorUpdate'
     navigate('/doctorUpdate', { state:{ user: user, doctor: doctor }})

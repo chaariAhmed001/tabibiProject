@@ -24,21 +24,32 @@ import Users from './components/sharedComponents/Admin/AllUsers/Users';
 import Doctors from './components/sharedComponents/Admin/AllUsers/Doctors';
 import Doctor from './components/sharedComponents/Admin/User/Doctor';
 import DoctorAdd from './components/sharedComponents/Admin/User/DoctorAdd';
-
+import Cookies from 'universal-cookie';
 
 function App() {
   
   const [user, setUser] = useState({});
   const [userType, setUserType] = useState('admin');
   const [style, setStyle] = useState('');
-
+  
+  
   useEffect(() => {
+  
     (userType=== 'admin') &&
        (path===(`http://localhost:3000/dashbourd`)||
         path===('http://localhost:3000/doctors')||
         path===('http://localhost:3000/doctor')||
         path===('http://localhost:3000/doctorAdd'))? setStyle('d-lg-flex d-block'):setStyle('')
-  }, [])
+        
+  }, [])   
+  /*const getUser = async()=>{
+    setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
+  }
+  useEffect(()=>{
+  getUser()
+
+  }
+,[user])*/
   
   const logout = async () => {
     await fetch('http://localhost:5000/user/logout', {
@@ -48,9 +59,10 @@ function App() {
     });
 
     setUser({});
+
 }
+// console.log(user)
 const path = window.location.href;
-console.log(path)
   return (
     <div className={style}>
       {(userType=== 'admin') &&
@@ -61,14 +73,12 @@ console.log(path)
         ? <SideBar/> :<NavBar /> 
         }
       
-      {/* <button onClick={logout} >log out</button>
-      <p>
-      {name ? 'Hi ' + name : 'You are not logged in'}
-      </p> */}
+      <button onClick={logout} >log out</button>
+      
       <Router>
           <Routes>
             <Route path='/' exact element={ <Home /> }/>
-            <Route path='/signin' element={ <LogIn user={user} setUser={setUser}/> }/>
+            <Route path='/signin' element={ <LogIn user={user} /> }/>
             <Route path='/signup' element={ <SignUp /> }/>
             <Route path='/doctorSignup' element={ <DoctorSignUp /> }/>
             <Route path='/landlodSignup' element={ <LandlodSignUp /> }/>
@@ -88,8 +98,6 @@ console.log(path)
             <Route path='/doctors' element={ <Doctors /> } />
             <Route path='/doctor/:id' element={ <Doctor /> } />
             <Route path='/doctorAdd' element={ <DoctorAdd /> }/>
-            
-            
           </Routes>
       </Router>
       {(userType=== 'admin') &&

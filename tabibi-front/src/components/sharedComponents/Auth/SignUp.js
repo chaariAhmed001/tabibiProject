@@ -5,12 +5,71 @@ import Input from '../../childComponents/Form/Input';
 import FormButton from '../../childComponents/Form/FormButton';
 import SelectUser from '../../childComponents/Form/SelectUser';
 
+
 function SignUp() {
     const [redirect, setRedirect] = useState(false)
     const [redirectForm, setRedirectForm] = useState();
     const [userType, setUserType] = useState();
     const [formData, setFormData] = useState()
-    const [elements, setElemets] = useState(['Doctor','Patient','Landlord'])
+    const [elements, setElemets] = useState(['Doctor','Patient','Landlord']);
+    const [message, setMessage] = useState();
+    const[values,setValues]=useState({
+      firstName:"",
+      lastName:"",
+      email:"",
+      password:"",
+      confirmPassword:"",
+      type:"",
+      crated: new Date
+    });
+    const inputs = [
+      {
+        name: "firstName",
+        type: "text",
+        placeholder: "FirstName",
+        title:
+          "First Name should be 3-16 characters and shouldn't include any special character!",
+        pattern: "^[A-Za-z0-9]{3,16}$",
+        required: true,
+      },
+      {
+        name: "lastName",
+        type: "text",
+        placeholder: "lastName",
+        title:
+          "last Name should be 3-16 characters and shouldn't include any special character!",
+        pattern: "^[A-Za-z0-9]{3,16}$",
+        required: true,
+      },
+      {
+        name: "email",
+        type: "email",
+        placeholder: "Email",
+        title: "It should be a valid email address!",
+        label: "Email",
+        required: true,
+      },
+      {
+        name: "password",
+        type: "password",
+        placeholder: "Password",
+        title:
+          "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+        label: "Password",
+        pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+        required: true,
+      },
+      {
+
+        name: "confirmPassword",
+        type: "password",
+        placeholder: "Confirm Password",
+        title: "Passwords don't match!",
+        label: "Confirm Password",
+        pattern: values.password === values.confirmPassword,
+        required: true,
+      },
+    ];
 
     const handleSubmit=async (event)  =>{
         event.preventDefault();
@@ -23,11 +82,10 @@ function SignUp() {
           type: data.get('selectType'),
           crated: new Date
         });
-        console.log(data.get('selectType'))
-        console.log(data)
-
-        await axios.post("http://localhost:5000/user/signup", formData); 
-        setRedirect(true);
+        
+        const res =await axios.post("http://localhost:5000/user/signup", formData); 
+        setMessage(res.data)
+        //setRedirect(true);
       };
       if(redirect && userType === 'Patient'){
         return <Navigate to="/signin" state={formData.email}/>
@@ -38,6 +96,9 @@ function SignUp() {
       else if(redirect && userType === 'Doctor'){
         return <Navigate to='/doctorSignUp' state={formData.email}/>
       }
+      const onChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+      };
   return (
     <div className='signUp-container'>
         <div className='signUp-content'>
@@ -46,19 +107,22 @@ function SignUp() {
                 <div className='col-12 col-lg-6 wow slideInUp' data-wow-delay="0.1s">
                     <h3 className='formTitel text-center mb-4'>Sign Up From Here</h3>
                     <form onSubmit={handleSubmit}>
-                        <Input type="text" name='firstName' placeholder="Your First Name"/>
-                        <Input type="text" name='lastName' placeholder="Your Last Name"/>
-                        <Input type="email" name='email' placeholder="Your Email"/>
-                        <Input type="password" name='password' placeholder="Your Password"/>
-                        <SelectUser name='Type' elements={elements}/>
+                        {inputs.map((input,index) => (
+                            <Input
+                              key={index}
+                              {...input}
+                              value={values[input.name]}
+                              onChange={onChange}
+                              
+                            />
+                          ))}
+                        <SelectUser name='Type' elements={elements}/> 
+                        
                         <FormButton type="submit" name="Sign Up"/>
+                        
                     </form>
                 </div>
-                <div className='col-6 text-center d-none d-lg-block wow slideInUp'data-wow-delay="0.3s">
-                    <img src='img/Auth/Signup.png' alt='signUp Img' style={{width:300 }}></img>
-                    <h4>Sign Up to our plateform </h4>
-                    <p>Tabibi Portal help patients to find doctors according to their illnesses.</p>
-                </div>
+                
                 </div>
                 
             </div>

@@ -52,16 +52,36 @@ input:focus{
 /* discussion List Style */
 .deslist-sec{
     background: #EEF9FF;
-    border-radius: 20px;
     height: 330px;
-    overflow-y: scroll;
+    overflow-y: auto;
+   
 }
+/* width */
+.deslist-sec::-webkit-scrollbar {
+    width: 0.2rem;
+    
+  }
+  /* Handle */
+  .deslist-sec::-webkit-scrollbar-thumb {
+    background-color: #06A3DA;
+    width: 0.1rem;
+    
+    border-radius: 1rem;
+  }
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
 .discussion-item{
   padding: 10px 15px;
   display: flex;
   vertical-align: baseline;
-  
+  border-radius: 20px;
   transition: .3s ease;
+  margin: 4px;
+  
 }
 .discussion-item .text {
     margin-left: 12px;
@@ -75,15 +95,35 @@ input:focus{
     cursor: pointer;
     border-radius: 20px;
 }
-
+.selected{
+    background-color: #fff;
+}
 /* Discussion Style  */
 .chat-section{
     background-color: #EEF9FF;
     margin-left: 10px;
     height: 350px;
     border-radius: 20px;
-
+overflow: auto;
 }
+/* width */
+.chat-section::-webkit-scrollbar {
+    width: 0.2rem;
+    
+  }
+  /* Handle */
+  .chat-section::-webkit-scrollbar-thumb {
+    background-color: #06A3DA;
+    width: 0.1rem;
+    
+    border-radius: 1rem;
+  }
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
 .chat-bubble {
     padding: 10px 14px;
     background: #eee;
@@ -107,3 +147,21 @@ input:focus{
     background: none;
 }
 
+.msg-conf,.date{
+    font-size: 1.3rem;
+}
+/* welcom Page style */ 
+.welcom-container{
+     background-color: #EEF9FF;
+     border-radius: 20px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+.welcom-container img {
+    height: 20rem;
+  }
+
+
+  

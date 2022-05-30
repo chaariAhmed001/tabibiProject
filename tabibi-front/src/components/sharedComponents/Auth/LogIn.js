@@ -5,12 +5,19 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 
 
-function LogIn({user}) {
+function LogIn() {
     let navigate = useNavigate();
     const [redirect, setRedirect] = useState(false)
     const [errMsg, setErrMsg] = useState();
+    const [user, setUser] = useState({});
+    const getUser = async()=>{
+        setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
+      }
+      useEffect(()=>{
+      getUser()
     
-    
+      }
+    ,[user && user.email])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,12 +29,14 @@ function LogIn({user}) {
        const res =await axios.post("http://localhost:5000/user/signin", form, { withCredentials: true })
        setErrMsg(res.data)
        if(!res.data){
-        setRedirect(true);    
+        setRedirect(true);  
+        //setUser(res.data)
     }
+    
      };
 
     //console.log(userType)
-      if(redirect){ return <Navigate to="/doctorProfil" /> }
+      if(redirect){ return <Navigate to="/chat" /> }
      /*if(redirect && userType.data === 'Patient'){
         return <Navigate to="/"/>
       }
@@ -43,7 +52,7 @@ function LogIn({user}) {
         <div className='logIn-content'>
             <div className='container'>
                {
-               user.email ? <p>you are loged in</p> : 
+               (user && user.email )? <p>you are loged in</p> : 
                
                 <div className='row align-items-center'>
                 <div className='col-12 col-lg-6 wow slideInUp' data-wow-delay="0.1s">

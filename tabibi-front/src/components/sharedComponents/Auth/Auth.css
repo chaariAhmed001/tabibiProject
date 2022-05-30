@@ -27,3 +27,12 @@
     background-color: #FAA85B;
     color: white
 }
+.errMsg {
+    display: none;
+    height: 30px;
+    color: red;
+}
+input:invalid ~ .errMsg {
+    display: block;
+    
+}
