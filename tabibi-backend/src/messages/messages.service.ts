@@ -9,8 +9,8 @@ import { Message } from './schemas/message.schema';
 export class MessagesService {
   constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) { }
     
-  create(createMessageDto: CreateMessageDto) {
-    const newMsg = new this.messageModel(createMessageDto);
+  create(createMessageSchema: Message) {
+    const newMsg = new this.messageModel(createMessageSchema);
     newMsg.save();
      return newMsg;
   }

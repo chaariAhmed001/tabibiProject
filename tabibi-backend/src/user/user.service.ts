@@ -50,7 +50,7 @@ export class UserService {
       if (foundUser) {
           const { password } = foundUser;
           if ( await bcrypt.compare(user.password, password)) {
-              return this.signUser(foundUser.id,foundUser.fullname,user.email, user.type);
+              return this.signUser(foundUser.id,foundUser.fullname,user.email, foundUser.type);
           }
           return new HttpException('Incorrect username or password', HttpStatus.UNAUTHORIZED)
       }

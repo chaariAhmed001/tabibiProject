@@ -8,6 +8,7 @@ import { DoctorModule } from './doctor/doctor.module';
 import { LandlordModule } from './Landlord/landlord.module';
 import { MessagesModule } from './messages/messages.module';
 import { PatientModule } from './patient/patient.module';
+import { ScheduelsModule } from './scheduels/scheduels.module';
 
 
 
@@ -20,7 +21,7 @@ import { PatientModule } from './patient/patient.module';
     maxPoolSize: 10, // Maintain up to 10 socket connections
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     family: 4 // Use IPv4, skip trying IPv6
-    }), BlogModule, UserModule, DoctorModule,LandlordModule, MessagesModule, PatientModule,
+    }), BlogModule, UserModule, DoctorModule,LandlordModule, MessagesModule, PatientModule, ScheduelsModule,
     
 ],
   controllers: [AppController],

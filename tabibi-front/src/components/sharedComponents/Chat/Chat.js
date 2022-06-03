@@ -11,25 +11,42 @@ import Welcome from '../../childComponents/ChatContainer/Welcome';
 function Chat() {
     
     const [user, setUser] = useState({});
+    const [users, setUsers] = useState({});
     const [currentChat, setCurrentChat] = useState(undefined);
     const [contacts, setContacts] = useState(undefined);
-
+  
     // get connected User
     const getUser = async()=>{
         setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
       }
       useEffect(()=>{
-      getUser()
+        let isApiSubscribed = true;
+         if(isApiSubscribed)getUser()
+        return () => {
+          // cancel the subscription
+          isApiSubscribed = false;
+      };
       }
     ,[user && user.email])
     //get users chat contacts list 
-    useEffect(() => {
-        const getcontacs= async () =>{
-          await axios.get("http://localhost:5000/doctor/doctors").then(res=>setContacts(res.data.res));
+    const getcontacs= async () =>{
+         //await axios.get("http://localhost:5000/doctor/doctors").then(res=>setContacts(res.data.res));
+          await axios.get("http://localhost:5000/user/users").then(res=>setUsers(res.data));
+          if(user.type === "Patient"){
+            contacts === undefined &&await axios.get("http://localhost:5000/doctor/doctors").then(res=>setContacts(res.data.res));
+          }
+          let patients ;
+          if(user.type === "Doctor"){
+            contacts === undefined &&
+              (setContacts(  users.users!= undefined && users.users.filter(user => user.type==='Patient')) )
+            
+          }
         }
+        
+    useEffect(() => {
         getcontacs();
-    },[]);
-
+    },[(contacts && contacts.length),user.type,users.users && users.users.length]);
+ 
 // on Change current chat 
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
@@ -59,7 +76,9 @@ function Chat() {
                     </div>
                     {(currentChat === undefined )?
                     <Welcome user={user}/>
-                    :<ChatContainer currentChat={currentChat}/>}
+                    :<ChatContainer currentChat={currentChat} connectedUser={user}/>
+                    
+                    }
                 </div>
             </div>
             : <p>your are note loged in  <Link to={"/signIN"}>signIN</Link></p>

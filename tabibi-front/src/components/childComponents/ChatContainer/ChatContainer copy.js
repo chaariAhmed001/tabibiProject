@@ -13,31 +13,14 @@ function ChatContainer({currentChat, connectedUser}) {
     const [showMSgIn, setShowMsgIn] = useState("");
     const [showMsgErr, setShowMsgErr] = useState('d-none');
     const [msgErr, setMsgErr] = useState("");
-   const [doctorScheduels, setDoctorScheduels] = useState(undefined)
    
     const onStateChange = (e) => {
         setchatMsg(e.target.value);
       };
-      const testScheduels = async(patientID,doctorID,selectedDate) =>{
-        //let Date= new Date(selectedDate);
-         
-         const res = await axios.get(('http://localhost:5000/scheduels/scheduel/'+doctorID));
-         const res1 = await axios.get('http://localhost:5000/scheduels/scheduel/patient/'+patientID);
-         res.data.map((element)=>{
-             if(element.date.slice(0,16) === selectedDate){
-                setShowMsgErr('');
-                setMsgErr('you have a schedule in that date, select a valid date')
-             }  
-         })
-         res1.data.map((element)=>{
-            console.log("aaa")
-            if(element.date.slice(0,16) === selectedDate){
-               setShowMsgErr('');
-               setMsgErr('the patient have a schedule in that date, select a valid date')
-            }  
-        })
-
-        
+      const testScheduels = async(patientID,doctorID) =>{
+         //return await axios.get('http://localhost:5000/scheduels/scheduel/'+'6273db05d1b210f39d7e39f8')
+        //return await axios.get('http://localhost:5000/scheduels/scheduel/patient/'+patientID).data
+        // return res
     }
     
       const onStateChange1 = (e) => {
@@ -50,12 +33,18 @@ function ChatContainer({currentChat, connectedUser}) {
             setShowMsgIn("")
             
         }else if(today <= selectedDate){
-           const selectedDate = e.target.value;
-            const res = testScheduels(currentChat&&currentChat._id,connectedUser&&connectedUser.id,selectedDate);
+             console.log(
+                 {
+                     'patient': currentChat._id, 
+                     'docotr':connectedUser._id
+                 }
+             )
+            const res = testScheduels(currentChat._id,connectedUser._id);
             setchatMsg(e.target.value);
             handleDateChange(e.target.value)
         }
       };
+//console.log(user)
       const ShowMsg = () =>{
           if(chatMsg != '' )
             { 
@@ -72,22 +61,19 @@ function ChatContainer({currentChat, connectedUser}) {
       }
       
       useEffect(() => {
-       
         getUser()
-        
       }, [currentChat.email])
-
     const showDatePicker = () =>{
         setShowDate("")
         setShowMsgIn("d-none")
     }
-
+    //console.log(user)
     const addScheduel = async()=>{
         chatMsgs.push(`${user && user.fullname} has confirm appointment`);  
         let data ={
             date : selectedDate, 
-            patient_id:connectedUser&& connectedUser.id ,
-            docotr_id : user&& user._id,
+            patient_id:user&&  user._id ,
+            docotr_id : currentChat&& currentChat._id,
         }    
        const res =await axios.post("http://localhost:5000/scheduels", data); 
     }
