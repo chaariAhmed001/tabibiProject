@@ -7,8 +7,8 @@ export class MessagesController {
     constructor(private messagesService: MessagesService) {}
 
     @Post('/create')
-    async addMessage(@Res() res, @Body() createMessage: Message) {
-      const message = await this.messagesService.create(createMessage);
+    async addMessage(@Res() res, @Body() reqBody) {
+      const message = await this.messagesService.create(reqBody);
       return res.status(HttpStatus.OK).json({
         feedback: 'Message has been created successfully',
         message,
@@ -16,9 +16,9 @@ export class MessagesController {
     }
   
     // Get messages
-    @Get('messages')
-    async getAllMessages(@Res() res) {
-      const messages = await this.messagesService.findAll();
+    @Post('/getAll')
+    async getAllMessages(@Res() res, @Body() reqBody) {
+      const messages = await this.messagesService.findAll(reqBody);
       return res.status(HttpStatus.OK).json(messages);
     }
 

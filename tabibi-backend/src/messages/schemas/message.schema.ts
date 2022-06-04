@@ -5,19 +5,13 @@ export type MessageDocument = Message & Document;
 @Schema()
 
 export class Message {
-    @Prop({
-        required: [true, 'Message is required'],
-      })
+    @Prop({required:true})
       message: string;
-      @Prop({
-        required: [true, 'Message is required'],
-      })
+      @Prop({required:true})
       users: [];
-      @Prop({
-        required: [true, 'Sender is required'],
-      })
+      @Prop({required:true})
       sender: string;
-      
-      timestamps: true;
+      @Prop({required:true}) 
+      date: Date;
 }
 export const messageSchema = SchemaFactory.createForClass(Message)

@@ -104,7 +104,10 @@ input:focus{
     margin-left: 10px;
     height: 350px;
     border-radius: 20px;
-overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: auto;
 }
 /* width */
 .chat-section::-webkit-scrollbar {
@@ -135,11 +138,13 @@ overflow: auto;
     background-color: #67A0D4;
     border-radius: 0px 9px 9px 9px;
     color: white;
+    justify-content: start;
 }
 .chat-bubble-right{
     background-color: #FAA85B   ;
     border-radius: 9px 9px 0px 9px;
     color: white;
+    justify-content: end;
 }
 .icons button{
     border: none;
@@ -150,6 +155,34 @@ overflow: auto;
 .msg-conf,.date{
     font-size: 1.3rem;
 }
+.message {
+    display: flex;
+    align-items: center;
+}
+.message  .content {
+    max-width: 40%;
+    overflow-wrap: break-word;
+    padding: 0.4rem;
+    margin: 0 0.5rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    color: white;
+}
+.sended {
+    justify-content: flex-end;
+}
+.sended .content {
+    background-color: #FAA85B;
+    border-radius: 9px 9px 0px 9px;
+
+  }
+  .recieved {
+    justify-content: flex-start;
+  }
+  .recieved .content {
+    background-color: #67A0D4;
+    border-radius: 9px 9px 0px 9px;
+  }
 /* welcom Page style */ 
 .welcom-container{
      background-color: #EEF9FF;
@@ -163,5 +196,3 @@ overflow: auto;
     height: 20rem;
   }
 
-
-  

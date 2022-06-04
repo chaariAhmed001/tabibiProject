@@ -14,7 +14,25 @@ function ChatContainer({currentChat, connectedUser}) {
     const [showMsgErr, setShowMsgErr] = useState('d-none');
     const [msgErr, setMsgErr] = useState("");
    const [doctorScheduels, setDoctorScheduels] = useState(undefined)
+   /*console.log({
+       "connceteUser": connectedUser&& connectedUser.id,
+       "current Chat selelcted" : user && user._id
+   })*/
+   const getMessages = async () =>{
+    const reqBody= connectedUser && user && {
+       from: connectedUser.id,
+       to: user._id,
+    }
+    setChatMsgs((await axios.post("http://localhost:5000/messages/getAll",{
+        from: connectedUser&& connectedUser.id,
+        to: user && user._id,
+    })).data)
    
+}
+   useEffect(() => {
+     getMessages();
+   }, [currentChat&&currentChat.length, user&&user._id,connectedUser&& connectedUser.id,chatMsgs.length])
+   console.log(chatMsgs)
     const onStateChange = (e) => {
         setchatMsg(e.target.value);
       };
@@ -30,7 +48,6 @@ function ChatContainer({currentChat, connectedUser}) {
              }  
          })
          res1.data.map((element)=>{
-            console.log("aaa")
             if(element.date.slice(0,16) === selectedDate){
                setShowMsgErr('');
                setMsgErr('the patient have a schedule in that date, select a valid date')
@@ -56,11 +73,13 @@ function ChatContainer({currentChat, connectedUser}) {
             handleDateChange(e.target.value)
         }
       };
-      const ShowMsg = () =>{
-          if(chatMsg != '' )
-            { 
-             chatMsgs.push(chatMsg)
-            }
+      const ShowMsg = async() =>{
+        const reqBody= {
+            from: connectedUser&& connectedUser.id,
+            to: user && user._id,
+            message: chatMsg,
+        };
+          const res = chatMsg != ''&& await axios.post("http://localhost:5000/messages/create", reqBody); 
             setchatMsg('');
             setShowDate("d-none")
             setShowMsgIn("")    
@@ -81,9 +100,11 @@ function ChatContainer({currentChat, connectedUser}) {
         setShowDate("")
         setShowMsgIn("d-none")
     }
-
+    
     const addScheduel = async()=>{
-        chatMsgs.push(`${user && user.fullname} has confirm appointment`);  
+        setchatMsg(`${user && user.fullname} has confirm appointment`)
+        console.log(chatMsg);
+        //chatMsgs.push(`${user && user.fullname} has confirm appointment`);  
         let data ={
             date : selectedDate, 
             patient_id:connectedUser&& connectedUser.id ,
@@ -92,7 +113,7 @@ function ChatContainer({currentChat, connectedUser}) {
        const res =await axios.post("http://localhost:5000/scheduels", data); 
     }
     const cancelScheduel = ()=>{
-       chatMsgs.push(`${user && user.fullname} has cancel appointment`);setchatMsg('');
+       chatMsgs.push(`${user && user.fullname} has cancel appointment`);
     }
   return (
     <div className='col-lg-8 col-md-12'>
@@ -100,39 +121,57 @@ function ChatContainer({currentChat, connectedUser}) {
             <img className='profile-img' src= {currentChat.profilImg ===undefined? '' : require(`../../../Imges/doctorProfilImg/${currentChat.profilImg}`)}></img>
             <h4 className='profile-name ps-4'>{user && user.fullname}</h4>
         </div>
+
         <div className='chat-section'>
-            <div className='row g-0 align-items-center'>
-                <div className='col-2 col-lg-1 '>
-                    <img className='profile-img ms-2' src='img/testimonial-1.jpg' alt='profilImg'></img>
-                </div>
-                <div className='col-10 col-lg-11'>
-                    <div className='chat-bubble chat-bubble-left'>
-                        Hello Dr Chaari Ahmed!
+            
+            {chatMsgs.map((msg,index) => {
+          return (
+              <div
+                className={`message ${
+                  msg.fromSelf ? "sended" : "recieved"
+                }`}
+                key={index}
+              >
+                <div className="content ">
+                { ((msg.message).slice(4,5)==='-') && ((msg.message).slice(7,8)==='-')&&((msg.message).slice(10,11)==='T') ? 
+                    <div key={index} className='d-flex flex-column justify-content-center align-items-center m-2'> 
+                                        <span className='msg-conf'>confirm our appointment </span>
+                                        <span className='date'>on <b>{msg.message}</b> ?</span>
+                                        <div className='d-flex mt-2'>
+                                        <button className='btn btn-primary m-2' onClick={addScheduel}> Confirm</button>
+                                        <button className='btn btn-danger m-2' onClick={cancelScheduel}>Cancel</button>
+                                        </div>
                     </div>
-                </div>    
-            </div>
-                {chatMsgs!=[] && chatMsgs.map((msg,index)=>{
+                    : msg.message}
+                </div>
+              </div>
+          );
+        })}
+         
+        </div>
+        {/* <div className='chat-section'>
+                {chatMsgs != [] && chatMsgs.map((msg,index)=>{
                     return(
                         <div className='row g-0 align-items-center' key={index}>
-                            <div className='col offset-md-6'key={index} >
-                                <div  className='chat-bubble chat-bubble-right' key={index}>
-                                    { (msg.slice(4,5)==='-') && (msg.slice(7,8)==='-')&&(msg.slice(10,11)==='T') ? 
+                            <div className='col-6' key={index} >
+                                <div  className={`chat-bubble chat-bubble-${ msg.fromSelf ? "right" : "left"}`} key={index}>
+                                    { ((msg.message).slice(4,5)==='-') && ((msg.message).slice(7,8)==='-')&&((msg.message).slice(10,11)==='T') ? 
                                     <div key={index} className='d-flex flex-column justify-content-center align-items-center'> 
                                         <span className='msg-conf'>confirm our appointment </span>
-                                        <span className='date'>on <b>{msg}</b> ?</span>
+                                        <span className='date'>on <b>{msg.message}</b> ?</span>
                                         <div className='d-flex mt-2'>
                                         <button className='btn btn-primary m-2' onClick={addScheduel}> Confirm</button>
                                         <button className='btn btn-danger m-2' onClick={cancelScheduel}>Cancel</button>
                                         </div>
                                     </div>
-                                    : msg}
+                                    : msg.message}
                                    
                                 </div>
                             </div>
                         </div>
                         );
                 })}                                    
-        </div>
+        </div> */}
         
         <div className={`alert alert-danger alert-dismissible fade show ${showMsgErr}`} role="alert"> 
             {msgErr} 

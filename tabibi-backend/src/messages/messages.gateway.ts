@@ -19,7 +19,7 @@ export class MessagesGateway {
 
 
   
-  @SubscribeMessage('createMessage')
+  /*@SubscribeMessage('createMessage')
   async create(@MessageBody() createMessage: Message) {    
     const message = await this.messagesService.create(createMessage);
     this.server.emit('message',message);
@@ -34,5 +34,5 @@ export class MessagesGateway {
   @SubscribeMessage('join')
     joinRoom(@MessageBody('name')name:string,@ConnectedSocket()client:Socket){
       return this.messagesService.identify(name,client.id)
-    }
+    }*/
 }
