@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '../Chat/Chat.css'
 import {FaSearch } from "react-icons/fa";
 import ContactList from '../../childComponents/ContactList/ContactList';
@@ -7,15 +7,17 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import ChatContainer from '../../childComponents/ChatContainer/ChatContainer';
 import Welcome from '../../childComponents/ChatContainer/Welcome';
-
+import { io } from "socket.io-client";
 function Chat() {
     
     const [user, setUser] = useState({});
     const [users, setUsers] = useState({});
     const [currentChat, setCurrentChat] = useState(undefined);
     const [contacts, setContacts] = useState(undefined);
-  
+    const socket = useRef();
+
     // get connected User
+    
     const getUser = async()=>{
         setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
       }
@@ -28,6 +30,18 @@ function Chat() {
       };
       }
     ,[user && user.email])
+
+    useEffect(() => {
+
+
+          if (user) {
+            socket.current = io('http://localhost:5000');
+            socket.current.connected=== true &&  socket.current.emit("add-user",user.id)
+          }
+         
+         
+     }, [user&&user.id]);
+    console.log(socket)
     //get users chat contacts list 
     const getcontacs= async () =>{
          //await axios.get("http://localhost:5000/doctor/doctors").then(res=>setContacts(res.data.res));
@@ -52,7 +66,7 @@ function Chat() {
     setCurrentChat(chat);
   };
 
-    
+  
   return (
     
     <div className='chat-container'>
@@ -72,11 +86,12 @@ function Chat() {
                                     <input placeholder='Search here' type='text '/>
                                 </div>
                         </div>
-                       <ContactList contacts={contacts} changeChat={handleChatChange}/>
+                       <ContactList contacts={contacts} changeChat={handleChatChange} />
                     </div>
                     {(currentChat === undefined )?
                     <Welcome user={user}/>
-                    :<ChatContainer currentChat={currentChat} connectedUser={user}/>
+                    :<ChatContainer currentChat={currentChat} connectedUser={user} socket={socket}/>
+                    
                     
                     }
                 </div>

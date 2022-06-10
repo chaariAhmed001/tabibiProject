@@ -53,7 +53,7 @@ export class DoctorController {
        newdoc.generalDes =doctor.generalDes;
        newdoc.detailDes=doctor.detailDes;
        newdoc.crated=doctor.crated;
-
+       newdoc.coordinates=doctor.coordinates;
         const result = await this.doctorService.createDoctor(newdoc);
          return response.status(HttpStatus.CREATED).json({
              result,

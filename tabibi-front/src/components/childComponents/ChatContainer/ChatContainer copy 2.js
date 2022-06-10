@@ -18,27 +18,15 @@ function ChatContainer({currentChat, connectedUser,socket}) {
     const [doctorScheduels, setDoctorScheduels] = useState(undefined)
     const scrollRef = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
-
-
-console.log(socket)
-
-    //get user current chat sleceted 
-    const getUser = async() =>{
-      const res= await axios.get(`http://localhost:5000/user/${currentChat.email}`);
-      setUser(res.data)
-    }
-
-    useEffect(() => {
-    
-      getUser()
-      
-    }, [currentChat.email])
-    // get all messages 
    const getMessages = async () =>{
     currentChat && setChatMsgs((await axios.post("http://localhost:5000/messages/getAll",{
         from: connectedUser&& connectedUser.id,
         to: user && user._id,
-    })).data)}
+    })).data)
+   
+}
+
+
    useEffect(() => {
     let isApiSubscribed = true;
      if(isApiSubscribed)getMessages();
@@ -48,86 +36,96 @@ console.log(socket)
   };
    }, [currentChat&&currentChat.length, user&&user._id,connectedUser&& connectedUser.id,chatMsgs.length])
    
+   useEffect(() => {
+    if ( socket&&socket.current) {
+     
+      socket.current.on("msg-recieve", (msg) => {
+        setArrivalMessage({ fromSelf: false, message: msg });
+      });
+    }
+  }, []);
 
-// enter a messages event
+  useEffect(() => {
+    arrivalMessage && setChatMsgs((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+  // useEffect(() => {
+  //   scrollRef && scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [chatMsgs]);
+
     const onStateChange = (e) => {
         setchatMsg(e.target.value);
-    };
+      };
+      const testScheduels = async(patientID,doctorID,selectedDate) =>{
+        //let Date= new Date(selectedDate);
+         
+         const res = await axios.get(('http://localhost:5000/scheduels/scheduel/'+doctorID));
+         const res1 = await axios.get('http://localhost:5000/scheduels/scheduel/patient/'+patientID);
+         res.data.map((element)=>{
+             if(element.date.slice(0,16) === selectedDate){
+                setShowMsgErr('');
+                setMsgErr('you have a schedule in that date, select a valid date')
+             }  
+         })
+         res1.data.map((element)=>{
+            if(element.date.slice(0,16) === selectedDate){
+               setShowMsgErr('');
+               setMsgErr('the patient have a schedule in that date, select a valid date')
+            }  
+        })
 
-  // handel chat change (send a messages)
+        
+    }
+    
+      const onStateChange1 = (e) => {
+        let today = new  Date
+        let selectedDate = new Date(e.target.value);
+        if(today > selectedDate){
+            setShowMsgErr('');
+            setMsgErr('select a valide date.');
+            setShowDate('d-none')
+            setShowMsgIn("")
+            
+        }else if(today <= selectedDate){
+           const selectedDate = e.target.value;
+            const res = testScheduels(currentChat&&currentChat._id,connectedUser&&connectedUser.id,selectedDate);
+            setchatMsg(e.target.value);
+            handleDateChange(e.target.value)
+        }
+      };
       const ShowMsg = async() =>{
         const reqBody= {
             from: connectedUser&& connectedUser.id,
             to: user && user._id,
             message: chatMsg,
         };
-        
           const res = chatMsg != ''&& await axios.post("http://localhost:5000/messages/create", reqBody); 
-          socket.current.on("send-msg", reqBody); 
+          socket&& socket.current.emit("send-msg", reqBody);
           const msgs = [...chatMsgs];
           msgs.push({ fromSelf: true, message: chatMsg });
+          
           setChatMsgs(msgs);
             setchatMsg('');
             setShowDate("d-none")
             setShowMsgIn("")    
       }
-
-      useEffect(() => {
-        if (socket.current) {
-          socket.current.on("msg-recieve", (msg) => {
-            console.log({msg})
-            setArrivalMessage({ fromSelf: false, message: msg });
-          });
-        }
-      }, []);
-      useEffect(() => {
-        arrivalMessage && setChatMsgs((prev) => [...prev, arrivalMessage]);
-      }, [arrivalMessage]);
-
-// test validation of the selecteed Date 
-const testScheduels = async(patientID,doctorID,selectedDate) =>{
-  //let Date= new Date(selectedDate);
-   
-   const res = await axios.get(('http://localhost:5000/scheduels/scheduel/'+doctorID));
-   const res1 = await axios.get('http://localhost:5000/scheduels/scheduel/patient/'+patientID);
-   res.data.map((element)=>{
-       if(element.date.slice(0,16) === selectedDate){
-          setShowMsgErr('');
-          setMsgErr('you have a schedule in that date, select a valid date')
-       }  
-   })
-   res1.data.map((element)=>{
-      if(element.date.slice(0,16) === selectedDate){
-         setShowMsgErr('');
-         setMsgErr('the patient have a schedule in that date, select a valid date')
-      }  
-  })
-
-  
-}
-// selected date event 
-const onStateChange1 = (e) => {
-  let today = new  Date
-  let selectedDate = new Date(e.target.value);
-  if(today > selectedDate){
-      setShowMsgErr('');
-      setMsgErr('select a valide date.');
-      setShowDate('d-none')
-      setShowMsgIn("")
+      //get user current chat sleceted 
+      const getUser = async() =>{
+        const res= await axios.get(`http://localhost:5000/user/${currentChat.email}`);
+        setUser(res.data)
+      }
       
-  }else if(today <= selectedDate){
-     const selectedDate = e.target.value;
-      const res = testScheduels(currentChat&&currentChat._id,connectedUser&&connectedUser.id,selectedDate);
-      setchatMsg(e.target.value);
-      handleDateChange(e.target.value)
-  }
-};
-// show the date picker input 
+      useEffect(() => {
+       
+        getUser()
+        
+      }, [currentChat.email])
+
     const showDatePicker = () =>{
         setShowDate("")
         setShowMsgIn("d-none")
     }
-// patient confirm the scheduel Date
+    
     const addScheduel = async(date)=>{
         chatMsg==='' && setchatMsg(`${user && user.fullname} has confirm appointment`); 
         
@@ -139,7 +137,6 @@ const onStateChange1 = (e) => {
         }    
        await axios.post("http://localhost:5000/scheduels", data); 
     }
-// patient cancel the scheduel Date
     const cancelScheduel = ()=>{
        chatMsgs.push(`${user && user.fullname} has cancel appointment`);
     }

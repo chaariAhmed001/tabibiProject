@@ -84,8 +84,8 @@ function SignUp() {
         });
         
         const res =await axios.post("http://localhost:5000/user/signup", formData); 
-        setMessage(res.data)
-        //setRedirect(true);
+        setMessage(res)
+        setRedirect(true);
       };
       if(redirect && userType === 'Patient'){
         return <Navigate to="/signin" state={formData.email}/>

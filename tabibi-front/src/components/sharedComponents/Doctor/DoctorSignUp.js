@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import PlacesAutocomplete, {geocodeByAddress,geocodeByPlaceId,getLatLng} from 'react-places-autocomplete';
+
+
 function DoctorSignUp() {
   const [formData, setFormData] = useState();
   const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
   const [redirect, setRedirect] = useState('false');
   const location = useLocation();
-  
-  
+  const [userEmail, setUserEmail] = useState(location.state)
+  const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] =useState({
+    lat: null,
+    lng: null
+  });
     const handleSubmit=async (event)  =>{
+      console.log(coordinates)
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     data.append('email', location.state); 
@@ -18,15 +26,23 @@ function DoctorSignUp() {
     data.append('education[university]',data.get('university'));
     data.append('education[year]',data.get('year'));
     data.append('crated',new Date);
+    coordinates.lat!= null &&data.append('coordinates[lat]', coordinates&& coordinates.lat);
+    coordinates.lat!= null &&data.append('coordinates[lng]',coordinates&& coordinates.lng);
+
    
     await axios.post("http://localhost:5000/doctor/signUp", data); 
     setRedirect(true);
+    setUserEmail('');
   };
-  console.log(redirect)
   if(redirect===true){
     return <Navigate to="/signin"/>
   }
-  
+  const handleSelect = async value => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    setAddress(value);
+    setCoordinates(latLng);
+  };
   return (
     <div className='doctorSignUP-container py-5'>
         <div className='doctorSignUP-content'>
@@ -50,9 +66,32 @@ function DoctorSignUp() {
                             <div className="m-auto pb-4">
                                 <input type="number" name='phoneNb' className="form-control border bg-light px-4" placeholder="Phone number..." required />
                             </div>
-                            <div className="m-auto pb-4">
+                            <PlacesAutocomplete
+                              value={address}
+                              onChange={setAddress}
+                              onSelect={handleSelect}
+                            >
+                              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                <div className='col-6 col-md-12 mb-4'>
+                                  <input className='form-control border bg-light px-4'{...getInputProps({ placeholder: "cabinet Addresse..." })} name='cabinetAddress' required/>
+
+                                  <div>
+                                    {loading ? <div>...loading</div> : null}
+
+                                    {suggestions.map((suggestion,index) => {
+                                      return (
+                                        <div className='form-control border bg-light px-4' key={index} {...getSuggestionItemProps(suggestion)}>
+                                          {suggestion.description}
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              )}
+                            </PlacesAutocomplete>
+                            {/* <div className="m-auto pb-4">
                               <input type="text" name='cabinetAddress' className="form-control   border bg-light px-4" placeholder="cabinetAddress" required />
-                            </div>
+                            </div> */}
                             <div className="m-auto pb-4">
                               <textarea type="text" name='generalDes' className="form-control   border bg-light px-4" placeholder="general Description" required />
                             </div>

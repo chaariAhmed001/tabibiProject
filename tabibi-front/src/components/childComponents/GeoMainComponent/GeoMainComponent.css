@@ -1,0 +1,158 @@
+/* Map Scection Style */
+.map-section{
+    height: 300px;
+    background-color: #F2F2F2;
+    border-radius: 20px;
+    box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+}
+.map-section .leaflet-container {
+    height: 100%;
+    border-radius: 12px;
+}
+.map-content{
+      width: 100%;
+      height: 100%;
+}
+/* Doctor Section Style */
+.doctor-section{
+    padding: 5px;
+    border-radius: 20px;
+    
+}
+.doctorsRes-container{
+    height: 180px;
+    overflow-y: scroll;
+}
+/* width */
+.doctorsRes-container::-webkit-scrollbar {
+    width: 0.2rem;
+  }
+  /* Handle */
+.doctorsRes-container::-webkit-scrollbar-thumb {
+    background-color: #06A3DA;
+    width: 0.1rem;
+    
+    border-radius: 1rem;
+  }
+/* Track */
+.doctorsRes-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+.doctorCard-container{
+    background-color: #F2F2F2;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+    height: 130px;
+    
+}
+.doctorCard-container:hover{
+    background-color: white;
+    
+    cursor: pointer;
+}
+.doctorCard-container::selection{
+    background-color: white;
+    
+}
+.doctor-name{
+    color: #234263;
+    font-weight: 700;
+    font-size: 18px;
+}
+.doctor-speciality{
+    font-size: 12px;
+    font-weight: 300;
+}
+.doctor-speciality span, .doctor-desc span{
+    font-weight: 700;
+}
+.doctor-desc{
+    font-size: 14px;
+    font-weight: 400;
+}
+.readMore{ 
+    text-decoration: none;
+    color: #615EFF;
+    font-weight: 700;
+}
+
+.doctor-pic{
+    width: 70px;
+    height: 40px;
+}
+
+
+.doctor-icons{
+    color: #356496;
+}
+.plus-btn:hover, .add-btn:hover, .readMore:hover{
+    opacity: 0.8;
+    transform: scale(1.5);
+    cursor: pointer;
+}
+/* .search-input{
+    background-color: #F2F2F2;
+    margin-left: 10px ;
+    border-radius: 20px;
+    box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+    width: 300px;
+} */
+.shearchMb-sec Button{
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 5px;
+    background: none;
+    color: inherit;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	outline: inherit;
+}
+.shearchMb-sec Button:hover{
+    background: none;
+    border: none;
+    color:black;
+    outline: inherit;
+}
+
+
+@media (max-width: 576px) { 
+    .doctorCard-container{
+        height: 100px;
+    }
+    .doctorsRes-container{
+        height: 600px;
+    }
+  }
+@media (min-width: 768px) { 
+    
+  .doctor-icons{
+      font-size: 20px;
+      margin-left: 35px;
+  }
+  
+}
+@media (min-width: 1200px) { 
+    .doctor-icons{
+        font-size: 20px;
+        margin-left: 60px;
+    }
+}
+
+/* Modal DiagnosticResult */
+
+.diagnosticRs-section Button,.modalBd Button,.doctor-filter Button{ 
+    width: 100%;
+    border-radius: 10px;
+    background-color: #67A0D4;
+    border-color: #356496;
+    font-weight: 700;
+}
+.doctor-status Button:hover{
+    background-color: #356496;
+}
+.shearchMb-modal{
+    height: 100%;
+}

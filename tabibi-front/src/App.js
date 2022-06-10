@@ -25,6 +25,8 @@ import Doctors from './components/sharedComponents/Admin/AllUsers/Doctors';
 import Doctor from './components/sharedComponents/Admin/User/Doctor';
 import DoctorAdd from './components/sharedComponents/Admin/User/DoctorAdd';
 import Cookies from 'universal-cookie';
+import PatientInfo from './components/sharedComponents/PatientInfo/PatientInfo';
+import Geolocation from './components/sharedComponents/Geolocation/Geolocation';
 
 function App() {
   
@@ -73,7 +75,7 @@ const path = window.location.href;
         ? <SideBar/> :<NavBar /> 
         }
       
-      <button onClick={logout} >log out</button>
+      {/* <button onClick={logout} >log out</button> */}
       
       <Router>
           <Routes>
@@ -98,6 +100,9 @@ const path = window.location.href;
             <Route path='/doctors' element={ <Doctors /> } />
             <Route path='/doctor/:id' element={ <Doctor /> } />
             <Route path='/doctorAdd' element={ <DoctorAdd /> }/>
+            <Route path='/patientInfo' element={ <PatientInfo /> }/>
+            <Route path='/geolocation' element={ <Geolocation /> }/>
+
           </Routes>
       </Router>
       {(userType=== 'admin') &&

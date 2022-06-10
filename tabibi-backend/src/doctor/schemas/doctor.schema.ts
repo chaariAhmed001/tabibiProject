@@ -1,7 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Education } from "./Education";
 
-
+class Coordinates{
+    lat: string;
+    lng: string;
+}
 export type DoctorDocument = Doctor & Document;
 @Schema()
 
@@ -24,6 +27,8 @@ export class Doctor {
     email: String;
     @Prop({required:true})
     crated: Date;
+    @Prop({required:true})
+    coordinates : Coordinates;
 }
 
 export const DoctorSchema = SchemaFactory.createForClass(Doctor)

@@ -1,0 +1,51 @@
+.sideBar-container{
+    background-color: #EEF9FF !important;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+}
+/* Doctor SideBar Component Style */
+
+.doctor-pic img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.doct-name{
+    font-weight: 700;
+    font-size: 18px;
+}
+.doct-speciality{
+    font-weight: 500;
+    font-size: 16px;
+}
+.doct-status{
+    font-weight: 400;
+    font-size: 12px;
+}
+.doctorDetails-content h3 {
+    font-weight: 700;
+    font-size: 18px;
+}
+.doctorDetails-content p {
+    font-weight: 400;
+    font-size: 14px;
+}
+.doctorRating-content span{
+    opacity: 0.7;
+}
+.star-icon{
+    cursor: pointer;
+    
+}
+.chat-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.doctor-status Button{
+    border-radius: 10px;
+    font-weight: 700;
+    color: white;
+}
+

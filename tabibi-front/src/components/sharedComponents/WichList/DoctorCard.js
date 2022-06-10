@@ -23,7 +23,7 @@ function DoctorCard({img , name, spiciality,rating}) {
             setHoverValue(undefined)
         }
   return (
-    <div className='doctorCard-container col-lg-3 col-md-5 col-sm-5 mb-4 m-auto'>
+    <div className='doctorCards-container col-lg-3 col-md-5 col-sm-5 mb-4 m-auto'>
         <div className='doctor-box m-auto'>
             <div className='doctor-img'>
                 <img src={img} alt='doctor Img' className='ms-3 mb-3'></img>

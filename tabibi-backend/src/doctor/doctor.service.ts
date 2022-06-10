@@ -56,7 +56,8 @@ export class DoctorService {
         generalDes : doctor.generalDes,
         detailDes: doctor.detailDes,
         email: doctor.email,
-        crated: doctor.crated
+        crated: doctor.crated,
+        coordinates:doctor.coordinates
       }
       //const foundDoctor = await this.doctorModel.findOne({ email: doctor.email }).exec();
         const newDoctor = new this.doctorModel(reqBody);

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-function SelectUser({name,elements,defaultValue,onChange}) {
+function SelectUser({name,elements,defaultValue,onChange,className}) {
     
   return (
-    <div className='col-6 m-auto pb-4'>
- <select className="form-select border bg-light px-4 " aria-label="Default select example" name='selectType' required onChange={onChange}>
+    <div className={className ? className : 'col-6 m-auto pb-4'}>
+     <select className="form-select border bg-light px-4 " aria-label="Default select example" name='selectType' required onChange={onChange}>
         <option value="">{name}</option>
         {
             elements.map((element,index,specialitys) => 

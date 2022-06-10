@@ -14,8 +14,13 @@ function LogIn() {
         setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
       }
       useEffect(()=>{
-      getUser()
-    
+        let isApiSubscribed = true;
+        if (isApiSubscribed) 
+            getUser()
+        return () => {
+                // cancel the subscription
+                isApiSubscribed = false;
+            };
       }
     ,[user && user.email])
 
@@ -30,17 +35,17 @@ function LogIn() {
        setErrMsg(res.data)
        if(!res.data){
         setRedirect(true);  
-        //setUser(res.data)
+        setUser(res.data)
     }
     
      };
 
     //console.log(userType)
-      if(redirect){ return <Navigate to="/chat" /> }
-     /*if(redirect && userType.data === 'Patient'){
-        return <Navigate to="/"/>
+     // if(redirect){ return <Navigate to="/chat" /> }
+     if(redirect && user.type === 'Patient'){
+        return <Navigate to="/patientInfo" state={user&&user.id}/>
       }
-      else if(redirect && userType.data === 'Landlord'){
+      /*else if(redirect && userType.data === 'Landlord'){
         return <Navigate to='/LandlodSignUp' />
       }
       else if(redirect && userType.data === 'Doctor'){

@@ -18,7 +18,7 @@
 
     // Sticky Navbar
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 40) {
+        if ($(this).scrollTop() > 0) {
             $('.navbar').addClass('sticky-top');
         } else {
             $('.navbar').removeClass('sticky-top');
