@@ -66,6 +66,14 @@ export class DoctorController {
             res
         })
     }
+    @Get('/doctors/:speciality')
+    async getDoctorBySpeciality(@Res() res, @Param('speciality') speciality) {
+        const doctors = await this.doctorService.findDoctorsBySpeciality(speciality);
+        if (!doctors) {
+            throw new NotFoundException('somthing fault');
+        }
+        return res.status(HttpStatus.OK).json(doctors);
+    }  
     @Get('/todayDoctors')
     async getToDayUsers(@Res() response) {
         const doctors = await this.doctorService.getToDayDoctors();
@@ -128,5 +136,5 @@ export class DoctorController {
         })
     }
 
-    
+     
 }

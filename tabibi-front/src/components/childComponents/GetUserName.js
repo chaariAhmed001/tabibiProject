@@ -17,7 +17,7 @@ function GetUserName({email}) {
         
       }, [email,name]);
   return (
-    <p className="fw-bold mb-1">{name}</p>
+    <span className="fw-bold mb-1">{name}</span>
   )
 }
 

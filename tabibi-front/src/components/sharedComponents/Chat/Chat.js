@@ -32,14 +32,10 @@ function Chat() {
     ,[user && user.email])
 
     useEffect(() => {
-
-
           if (user) {
             socket.current = io('http://localhost:5000');
             socket.current.connected=== true &&  socket.current.emit("add-user",user.id)
           }
-         
-         
      }, [user&&user.id]);
     console.log(socket)
     //get users chat contacts list 

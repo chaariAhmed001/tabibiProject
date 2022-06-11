@@ -1,9 +1,7 @@
 /* Map Scection Style */
 .map-section{
-    height: 300px;
-    background-color: #F2F2F2;
-    border-radius: 20px;
-    box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+    height: 320px;
+    
 }
 .map-section .leaflet-container {
     height: 100%;
@@ -20,7 +18,9 @@
     
 }
 .doctorsRes-container{
-    height: 180px;
+    height: 220px;
+    background-color: #EEF9FF !important;
+    border-radius: 1rem;
     overflow-y: scroll;
 }
 /* width */
@@ -31,7 +31,6 @@
 .doctorsRes-container::-webkit-scrollbar-thumb {
     background-color: #06A3DA;
     width: 0.1rem;
-    
     border-radius: 1rem;
   }
 /* Track */
@@ -40,11 +39,10 @@
     border-radius: 10px;
   }
 .doctorCard-container{
-    background-color: #F2F2F2;
     border-radius: 20px;
     margin-bottom: 16px;
     box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
-    height: 130px;
+    width: 95%;
     
 }
 .doctorCard-container:hover{
@@ -55,6 +53,9 @@
 .doctorCard-container::selection{
     background-color: white;
     
+}
+.selected{
+    background-color: #fff;
 }
 .doctor-name{
     color: #234263;
@@ -82,8 +83,6 @@
     width: 70px;
     height: 40px;
 }
-
-
 .doctor-icons{
     color: #356496;
 }

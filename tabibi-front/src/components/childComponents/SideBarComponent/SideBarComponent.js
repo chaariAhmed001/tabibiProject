@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './SideBarComponent.css'
 import { FaStar } from 'react-icons/fa';
+import GetUserName from '../GetUserName';
 const colors = {
     orange: "#FAA85B",
     grey: "#a9a9a9"
     
 };
 
-
-function SideBarComponent() {
+// import '../../../Imges/doctorProfilImg'
+function SideBarComponent({selectedDoc,defaultDoc}) {
   const [currentValue, setCurrentValue] = useState(0);
-    const [hoverValue, setHoverValue] = useState(undefined);
-    const stars = Array(5).fill(0)
-
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const [doc, setDoc] = useState(undefined)
+  const stars = Array(5).fill(0)
+    console.log(selectedDoc)
     const handleClick = value => {
         setCurrentValue(value)
     }
@@ -23,6 +25,12 @@ function SideBarComponent() {
     const handleMouseLeave = () => {
         setHoverValue(undefined)
     }
+    useEffect(() => {
+      selectedDoc=== undefined ? setDoc(defaultDoc) : setDoc(selectedDoc)
+      
+    }, [defaultDoc&&defaultDoc.email,selectedDoc!= undefined && selectedDoc.email])
+    
+    // console.log(selectedDoc&&selectedDoc.email)
   return (
     <div className='sideBar-container ms-4'>
       <div className='sideBar-content '>
@@ -31,23 +39,24 @@ function SideBarComponent() {
               <div className='doctorPres-container '>
                   <div className='doctorPres-content d-flex mb-4'>
                       <div className='doctor-pic '>
-                          <img src="https://img.freepik.com/vecteurs-libre/contexte-du-docteur_1270-84.jpg?size=338&ext=jpg&ga=GA1.2.1978120341.1627776000" />
+                        {/* <img src= {doc&&doc.profilImg ===undefined? '' : require(`../../../Imges/doctorProfilImg/${doc&&doc.profilImg}`)} /> */}
+                        {/* <img src= { doc&&doc.profilImg===''||  doc&&doc.profilImg=== undefined? '':  require(`../../../Imges/doctorProfilImg/${doc&&doc.profilImg}`)} /> */}
                       </div>
                       <div className='docotr-details ms-4'>
-                          <h5 className='mb-0 '><b>CHAARI Ahmed</b></h5>
-                          <div className='doct-speciality'>Surgery</div>
-                          <div className='doct-status'>Doctor Chaari ahmed is online</div>
+                          <h5 className='mb-0 '><b>
+                            <GetUserName  email={doc&& doc.email}/> 
+                              </b></h5>
+                          <div className='doct-speciality'>{doc&& doc.speciality}</div>
+                          <div className='doct-status'>Doctor <GetUserName  email={doc&& doc.email}/> is online</div>
                       </div>    
                   </div>
               </div>
               <div className='doctorDetails-container mt-3'>
                   <div className='doctorDetails-content'>
                       <div className='doctorDes-sec'>
-                          <h3>Doctor description</h3>
-                          <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum...
+                          <h3>About Doctor <GetUserName  email={doc&& doc.email}/></h3>
+                          <p class="text-justify text-break">
+                          {doc&& doc.detailDes}
                           </p>
                       </div>
                       <div className='doctorRt-sec d-flex aling-items-center'>
@@ -71,7 +80,7 @@ function SideBarComponent() {
                       </div>
                       <div className='docotrPn-sec mt-2 mb-2 d-flex'>
                           <h3>Phone number</h3>
-                          <span className='ps-3'>22 222 222 </span>               
+                          <span className='ps-3'>{doc&& doc.phoneNumber} </span>               
                       </div> 
                       <div className='doctor-status '>
                           <p className='mb-4'>
@@ -79,7 +88,7 @@ function SideBarComponent() {
                               The doctor will be available in 2 weeks
                           </p>
                           <div className='chat-btn m-auto'>
-                              <button type="button" class="btn btn-primary btn-sm ">Chat with doctor AHMED</button>
+                              <button type="button" className="btn btn-primary btn-sm ">Chat with doctor <GetUserName  email={doc&& doc.email}/></button>
                           </div>
                       </div>                   
                   </div>

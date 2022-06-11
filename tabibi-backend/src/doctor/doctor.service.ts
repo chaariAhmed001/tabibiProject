@@ -81,4 +81,16 @@ export class DoctorService {
     async delete(id): Promise<any> {
       return await this.doctorModel.findByIdAndRemove(id);
     }
+    async findDoctorsBySpeciality(speciality){
+     const doctors=  await this.doctorModel.find().exec();
+     const docs=[];
+     doctors.forEach(doc => {
+      if(doc.speciality===speciality)
+      {
+        docs.push(doc);
+
+      }
+    });
+    return docs
+    }
 }
