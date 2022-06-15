@@ -15,6 +15,8 @@ export class User {
     @Prop({required:true})
     type: string;
     @Prop({required:true})
+    status: string;
+    @Prop({required:true})
     crated: Date;
 }
 export const UserSchema = SchemaFactory.createForClass(User)

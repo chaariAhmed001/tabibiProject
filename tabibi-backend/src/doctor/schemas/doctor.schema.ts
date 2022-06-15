@@ -11,7 +11,7 @@ export type DoctorDocument = Doctor & Document;
 export class Doctor {
     @Prop({required:true})
     speciality: string;
-    @Prop()
+    @Prop({required:true})
     profilImg: string;
     @Prop({required:true})
     phoneNumber: String;
@@ -29,6 +29,13 @@ export class Doctor {
     crated: Date;
     @Prop({required:true})
     coordinates : Coordinates;
+    @Prop({required:true})
+    skills: String [];
+    @Prop({required:true})
+    experience : String;
+    @Prop({required:true})
+    city : String;
+    
 }
 
 export const DoctorSchema = SchemaFactory.createForClass(Doctor)

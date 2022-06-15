@@ -80,7 +80,8 @@ function SignUp() {
           email: data.get('email'),
           password: data.get('password'),
           type: data.get('selectType'),
-          crated: new Date
+          crated: new Date,
+          status: 'offline'
         });
         
         const res =await axios.post("http://localhost:5000/user/signup", formData); 

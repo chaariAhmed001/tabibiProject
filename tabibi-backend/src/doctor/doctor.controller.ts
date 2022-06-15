@@ -22,7 +22,6 @@ export class DoctorController {
         }
         return res.status(HttpStatus.OK).json(doc);
     }
-    
     @Get('findUser/:email')
     async getUser(@Param('email') email) {
       const res = this.doctorService.getUser(email);
@@ -54,6 +53,9 @@ export class DoctorController {
        newdoc.detailDes=doctor.detailDes;
        newdoc.crated=doctor.crated;
        newdoc.coordinates=doctor.coordinates;
+       newdoc.skills=doctor.skills;
+       newdoc.experience = doctor.experience
+       newdoc.city=doctor.city
         const result = await this.doctorService.createDoctor(newdoc);
          return response.status(HttpStatus.CREATED).json({
              result,
@@ -94,7 +96,14 @@ export class DoctorController {
         }
         return res.status(HttpStatus.OK).json(doctor);
     }
-    
+    @Get('cpDoctor/:docEmail')
+    async getDoc(@Res() res, @Param('docEmail') docEmail) {
+        const doctor = await this.doctorService.getDoct(docEmail);
+        if (!doctor) {
+            throw new NotFoundException('Doctor does not exist!');
+        }
+        return res.status(HttpStatus.OK).json(doctor);
+    }
     //  @Get('doctor/:email')
     //  async getDoctorByEmail(@Res() res,@Param() docEmail){
     //      const doctor =  await this.doctorService.getOne(docEmail);

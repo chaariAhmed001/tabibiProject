@@ -25,6 +25,14 @@ export class DoctorService {
     const user = await this.userService.getOne(email);
     return user
   }
+  async getDoct(docEmail){
+    const doc = await this.doctorModel.findOne({docEmail}).exec();
+    const user = await this.userService.getOne(docEmail);
+    return {
+      doctor: doc,
+      user: user
+    }
+  }
   async getAllDoctors() {
     return await this.doctorModel.find().exec();
     /*let all;
@@ -57,7 +65,10 @@ export class DoctorService {
         detailDes: doctor.detailDes,
         email: doctor.email,
         crated: doctor.crated,
-        coordinates:doctor.coordinates
+        coordinates:doctor.coordinates,
+        skills:doctor.skills,
+        experience: doctor.experience,
+        city:doctor.city
       }
       //const foundDoctor = await this.doctorModel.findOne({ email: doctor.email }).exec();
         const newDoctor = new this.doctorModel(reqBody);

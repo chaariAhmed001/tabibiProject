@@ -8,9 +8,11 @@ import SideBarComponent from '../../childComponents/SideBarComponent/SideBarComp
 function Geolocation() {
     const location = useLocation();
     const [doctors, setDoctors] = useState(undefined);
-    const [doc, setDoc] = useState(undefined)
+    const [doc, setDoc] = useState(undefined);
+    
     const getDoctors= async () =>{
-       await axios.get("http://localhost:5000/doctor/doctors/"+(location&&location.state)).then((res)=> setDoctors(res.data));
+
+      await axios.get("http://localhost:5000/doctor/doctors/"+(location&&location.state)).then((res)=> setDoctors(res.data));
      }
      
  useEffect(() => {
@@ -19,7 +21,6 @@ function Geolocation() {
 const selectedDoc=(doc)=>{
 setDoc(doc)
 }
-
   return (
     <div className='geolocation-container my-5' >
       <div className='geolocation-content'>

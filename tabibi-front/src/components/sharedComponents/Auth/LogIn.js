@@ -45,13 +45,13 @@ function LogIn() {
      if(redirect && user.type === 'Patient'){
         return <Navigate to="/patientInfo" state={user&&user.id}/>
       }
-      /*else if(redirect && userType.data === 'Landlord'){
+        else if(redirect && user.type === 'Landlord'){
         return <Navigate to='/LandlodSignUp' />
       }
-      else if(redirect && userType.data === 'Doctor'){
+      else if(redirect && user.type === 'Doctor'){
         
-        return <Navigate to='/doctorProfil' state={user} />
-      }*/
+        return <Navigate to='/doctorProfil' state={user&&user.email} />
+      }
   return (
     <div className='logIn-container'>
         <div className='logIn-content'>

@@ -23,7 +23,7 @@ function MapComponent({center,zoom}) {
         />
         <Marker position={center}>
             <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+              TABIBI Company
             </Popup>
         </Marker>
       </MapContainer>

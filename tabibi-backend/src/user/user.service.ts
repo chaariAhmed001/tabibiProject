@@ -23,7 +23,8 @@ export class UserService {
           email: user.email,
           password: hash,
           type: user.type,
-          crated:user.crated
+          crated:user.crated,
+          status: user.status
       }
       const foundUser = await this.userModel.findOne({ email: user.email }).exec();
       if(!foundUser){
@@ -39,8 +40,12 @@ export class UserService {
       
     }
     async getOne(email): Promise<User> {
-      return await this.userModel.findOne({ email }).exec();
+      const user = await this.userModel
+      .findOne({email})
+      .exec();
+    return user;
   }
+  
   async getUserType(email): Promise<String> {
     const foundUser =this.getOne(email);
     return (await foundUser).type
@@ -50,6 +55,7 @@ export class UserService {
       if (foundUser) {
           const { password } = foundUser;
           if ( await bcrypt.compare(user.password, password)) {
+            await this.userModel.findOneAndUpdate({ email: user.email}, {status:'online'}, { new: true });
               return this.signUser(foundUser.id,foundUser.fullname,user.email, foundUser.type);
           }
           return new HttpException('Incorrect username or password', HttpStatus.UNAUTHORIZED)

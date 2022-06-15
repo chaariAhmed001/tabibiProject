@@ -14,16 +14,16 @@ function DoctorComponent({doctors,changeDoc}) {
   const [searchInput, setSearchInput] = useState('');
   const [allDoctors, setAllDoctors] = useState([])
     
-  /*useEffect(async() => {
-    const getDoctors =async(docId)=>{
-      await axios.get(`http://localhost:5000/doctor/doctor/${docId}`).then(res => allDoctors.push(res.data))
-      // allDoctors.push(doctor.data);
-    }
-    doctors&& doctors.map(doc=>{
+  // useEffect(async() => {
+  //   const getDoctors =async(docId)=>{
+  //     await axios.get(`http://localhost:5000/doctor/doctor/${docId}`).then(res => allDoctors.push(res.data))
+  //     // allDoctors.push(doctor.data);
+  //   }
+  //   doctors&& doctors.map(doc=>{
       
-        getDoctors(doc._id)
-      })
-  }, [allDoctors,doctors])*/
+  //       getDoctors(doc._id)
+  //     })
+  // }, [allDoctors,doctors])
   
   const changeCurrentDoc = (index, doc) => {
       setCurrentSelected(index);
@@ -56,7 +56,7 @@ function DoctorComponent({doctors,changeDoc}) {
                 <div className='doctorsRes-content'>
                   {
                      
-                     doctors&& doctors.filter((doc,index) => {
+                      /*.filter((doc,index) => {
                         if (searchInput === '') {
                             return doc;
                         }
@@ -64,10 +64,10 @@ function DoctorComponent({doctors,changeDoc}) {
                           
                             return doc.email.toLowerCase().includes(searchInput.toLowerCase())
                         }
-                    })
-                   .map((doc,index) =>
+                    })*/
+                    doctors&& doctors.map((doc,index) =>
                     <div className={`doctorCard-container p-2 ms-4 mt-3 ${index === currentSelected ? 
-                      "selected" : ""}`} data-wow-delay="0.5s" onClick={() => changeCurrentDoc(index, doc)} 
+                      "selected" : ""}`} data-wow-delay="0.5s" onClick={() => changeCurrentDoc(index, doc.doctor)} 
                       key={index} >
                       <div className='doctorCard-content w-100 h-100'>
                           <div className='container '>
@@ -75,12 +75,12 @@ function DoctorComponent({doctors,changeDoc}) {
                                       <div className='doctor-des w-100'>
                                           <div className='row'>
                                           <div className='doctor-pic col-md-1 col-xs-2'>
-                                          <img src= {doc.profilImg ===undefined? '' : require(`../../../Imges/doctorProfilImg/${doc.profilImg}`)}  
-                                          className='w-100 h-100'/>
+                                          {/* <img src= {doc.profilImg ===undefined? '' : require(`../../../Imges/doctorProfilImg/${doc.profilImg}`)}  
+                                          className='w-100 h-100'/>*/}
                                       </div>
                                           <div  className='col-xl-9 col-lg-8 col-sm-6'>
-                                              <h3 className='doctor-name'>Dr <GetUserName email={doc.email}/></h3>
-                                              <h4 className='doctor-speciality'><span>Speciality:</span>{doc.speciality}</h4>
+                                              <h3 className='doctor-name'>Dr {doc&& doc.user?doc.user.fullname: <GetUserName email={doc.email}/>} </h3>
+                                              <h4 className='doctor-speciality'><span>Speciality:</span>{doc &&  doc.doctor?doc.doctor.speciality:doc.speciality}</h4>
                                           </div>
                                           <div className='col-2'>
                                               <div className='doctor-icons' >
@@ -92,9 +92,9 @@ function DoctorComponent({doctors,changeDoc}) {
                                           <div className='row'>
                                           <div className='doctor-desc'>
                                           <p className='m-1  d-none d-sm-block '>
-                                          <span>Description:</span> {doc.generalDes} 
+                                          <span>Description:</span> {doc&&  doc.doctor?doc.doctor.generalDes: doc.generalDes} 
                                           <a className='readMore d-md-none'>Read More</a>
-                                          <a className='readMore'> Read More About <GetUserName email={doc.email}/></a>
+                                          <a className='readMore'> Read More About  {doc&& doc.user ? doc.user.fullname: doc.fullname}</a>
                                           </p>
                                           
                                           </div>

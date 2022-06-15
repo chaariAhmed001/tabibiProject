@@ -73,17 +73,29 @@ export class UserController {
         throw new UnauthorizedException();
     }
   }
-  @Get(':email')
-    async getUserByEmail(@Param('email') userEmail,){
-     const res = this.userService.getOne(userEmail);
-     return res
+//   @Get(':email')
+//     async getUserByEmail(@Param('email') userEmail){
+//         const res = this.userService.getOne(userEmail);
+//         return res;
+//     }
+    @Get(':email')
+  async getPost(@Res() res, @Param('email') email) {
+    const user =await this.userService.getOne(email);
+    if (!user) {
+        throw new NotFoundException('User does not exist!');
     }
+    return res.status(HttpStatus.OK).json(user);
+  }
   @Get('/userType/:email')
-  async getUserType(@Param('email') email) {
-    const res = this.userService.getUserType(email);
-    return res;
+  async getUserType(@Res() res,@Param('email') email) {
+    const user = this.userService.getUserType(email);
+    if (!user) {
+        throw new NotFoundException('User does not exist!');
+    }
+    return res.status(HttpStatus.OK).json(user);
 
   }
+
   @Post('logout')
   async logout(@Res({passthrough: true}) response) {
       response.clearCookie('connect.sid');

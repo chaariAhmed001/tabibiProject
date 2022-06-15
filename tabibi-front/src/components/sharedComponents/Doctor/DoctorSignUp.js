@@ -15,6 +15,9 @@ function DoctorSignUp() {
     lat: null,
     lng: null
   });
+  const [skills, setskills] = useState([])
+  const [skillInput, setskillInput] = useState("");
+  const [city, setSity] = useState(['Béja','Ben Arous','Bizerte','Gabes','Gafsa','Jendouba','Kairouan','Kasserine','Kebili','La Manouba','Le Kef','Mahdia','Médenine','Monastir','Nabeul','Sfax','Sidi Bouzid','Siliana','Sousse','Tataouine','Tozeur','Tunis','Zaghouan'])
     const handleSubmit=async (event)  =>{
       console.log(coordinates)
     event.preventDefault();
@@ -25,6 +28,7 @@ function DoctorSignUp() {
     data.append('education[diplome]',data.get('diplome'));
     data.append('education[university]',data.get('university'));
     data.append('education[year]',data.get('year'));
+    skills.forEach(skill => { data.append("skills[]", skill) })
     data.append('crated',new Date);
     coordinates.lat!= null &&data.append('coordinates[lat]', coordinates&& coordinates.lat);
     coordinates.lat!= null &&data.append('coordinates[lng]',coordinates&& coordinates.lng);
@@ -34,6 +38,16 @@ function DoctorSignUp() {
     setRedirect(true);
     setUserEmail('');
   };
+
+  const onStateChange = (e) => {
+    setskillInput(e.target.value);
+    
+  };
+  const addSkills = () =>{
+    skillInput !==''&& skills.push(skillInput);
+    setskillInput('') 
+    console.log(skills)
+  }
   if(redirect===true){
     return <Navigate to="/signin"/>
   }
@@ -73,7 +87,7 @@ function DoctorSignUp() {
                             >
                               {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                 <div className='col-6 col-md-12 mb-4'>
-                                  <input className='form-control border bg-light px-4'{...getInputProps({ placeholder: "cabinet Addresse..." })} name='cabinetAddress' required/>
+                                  <input className='form-control border bg-light px-4'{...getInputProps({ placeholder: "Cabinet Addresse..." })} name='cabinetAddress' required/>
 
                                   <div>
                                     {loading ? <div>...loading</div> : null}
@@ -89,14 +103,11 @@ function DoctorSignUp() {
                                 </div>
                               )}
                             </PlacesAutocomplete>
-                            {/* <div className="m-auto pb-4">
-                              <input type="text" name='cabinetAddress' className="form-control   border bg-light px-4" placeholder="cabinetAddress" required />
-                            </div> */}
                             <div className="m-auto pb-4">
-                              <textarea type="text" name='generalDes' className="form-control   border bg-light px-4" placeholder="general Description" required />
+                              <textarea type="text" name='generalDes' className="form-control   border bg-light px-4" placeholder="General Description" style={{height:80}} required />
                             </div>
                             <div className="m-auto pb-4">
-                              <textarea type="text" name='detailDes' className="form-control   border bg-light px-4" placeholder="detail Description" required />
+                              <textarea type="text" name='detailDes' className="form-control   border bg-light px-4" placeholder="Detail Description" style={{height:100}} required />
                             </div>
                             
                         </div>
@@ -104,6 +115,19 @@ function DoctorSignUp() {
                           <div className="m-auto pb-4">
                               <input className="form-control" type="file" id="formFile" name='profilImg' />
                           </div>
+                          <div className='m-auto '>
+                              <select className="form-select m-auto mb-4 border bg-light px-4" aria-label="Default select example" name='city' required>
+                                  <option>city</option>
+                                  {
+                                  city.map((city,index) => 
+                                    <option value={city} key={index} >{city}</option>
+                                  )                          
+                                  }
+                              </select>
+                          </div>
+                          <div className="m-auto pb-4">
+                                <input type="number" name='experience' className="form-control border bg-light px-4" placeholder="Year of experience..." required />
+                            </div>
                           <h3 className='text-center'>Diplome</h3>
                           <div className="m-auto pb-4">
                               <input type="text" name='diplome' className="form-control border bg-light px-4" placeholder="Degree" required />
@@ -114,7 +138,23 @@ function DoctorSignUp() {
                           <div className=" m-auto pb-4">
                               <input type="date" name='year' className="form-control border bg-light px-4" required />
                           </div>
+                          
+                            
                         </div>
+                      </div>
+                      <div className='content col-12 d-flex align-content-between' style={{flexWrap: 'wrap' ,alignItems: 'space-between'}}>
+                            {skills.map((skill,index)=>{
+                                return(
+                                 
+                                  <span className='bg-light p-2 m-2' key={index} style={{borderRadius: 10}}>{skill }</span>
+                                
+                                );
+                            })}
+                      </div>
+                      <div className="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="List Of Treatments" aria-label="Your Skills" aria-describedby="button-addon2"  onChange={onStateChange} value={skillInput}/>
+                        <button className="btn btn-outline-secondary" type="button" 
+                            id="button-addon2" onClick={addSkills}>+</button>
                       </div>
                       <div className="col-6 m-auto">
                         <button className="btn btn-primary w-100" type="submit">Registre</button>

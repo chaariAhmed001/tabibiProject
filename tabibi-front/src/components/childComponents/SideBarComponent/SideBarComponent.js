@@ -14,7 +14,6 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
   const [hoverValue, setHoverValue] = useState(undefined);
   const [doc, setDoc] = useState(undefined)
   const stars = Array(5).fill(0)
-    console.log(selectedDoc)
     const handleClick = value => {
         setCurrentValue(value)
     }
@@ -29,8 +28,8 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
       selectedDoc=== undefined ? setDoc(defaultDoc) : setDoc(selectedDoc)
       
     }, [defaultDoc&&defaultDoc.email,selectedDoc!= undefined && selectedDoc.email])
+   
     
-    // console.log(selectedDoc&&selectedDoc.email)
   return (
     <div className='sideBar-container ms-4'>
       <div className='sideBar-content '>
@@ -39,8 +38,7 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
               <div className='doctorPres-container '>
                   <div className='doctorPres-content d-flex mb-4'>
                       <div className='doctor-pic '>
-                        {/* <img src= {doc&&doc.profilImg ===undefined? '' : require(`../../../Imges/doctorProfilImg/${doc&&doc.profilImg}`)} /> */}
-                        {/* <img src= { doc&&doc.profilImg===''||  doc&&doc.profilImg=== undefined? '':  require(`../../../Imges/doctorProfilImg/${doc&&doc.profilImg}`)} /> */}
+                        <img src= { doc&&doc.profilImg === ''||  doc&&doc.profilImg === undefined ? '' :  doc &&  require(`../../../Imges/doctorProfilImg/${doc&&doc.profilImg}`)} />
                       </div>
                       <div className='docotr-details ms-4'>
                           <h5 className='mb-0 '><b>
@@ -81,7 +79,13 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
                       <div className='docotrPn-sec mt-2 mb-2 d-flex'>
                           <h3>Phone number</h3>
                           <span className='ps-3'>{doc&& doc.phoneNumber} </span>               
-                      </div> 
+                      </div><div className='docotrPn-sec mt-2 mb-2 d-flex'>
+                          <h3>Skills: </h3>
+                          {doc && doc.skills.map((skill,index) => 
+                                <span className='ps-3' key={index}>{skill}</span>
+                            )}
+                                         
+                      </div>  
                       <div className='doctor-status '>
                           <p className='mb-4'>
                               The doctor is not available <br></br>

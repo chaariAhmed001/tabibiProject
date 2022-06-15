@@ -1,18 +1,34 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import DoctorUpdate from './DoctorUpdate';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { GiDiploma, GiSkills } from 'react-icons/gi';
+import { MdEmail, MdMapsHomeWork, MdSmartphone ,MdOutlineKeyboardBackspace, MdAddBox} from "react-icons/md";
+import Input from '../../childComponents/Form/Input';
+import FormButton from '../../childComponents/Form/FormButton';
 
-function DoctorProfil(props) {
+
+function DoctorProfil() {
   const location = useLocation();
   let navigate = useNavigate();
-  const [user, setUser] = useState(location.state);
-  const [doctor, setDoctor] = useState({});
-  console.log("aaaa")
-  console.log(props);
+  const [doctor, setDoctor] = useState(undefined);
+  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
+  const [message, setMessage] = useState('');
+  const [result, setResult] = useState();
+
+  const getDoct = async () =>{
+    await axios.get("http://localhost:5000/doctor/cpDoctor/"+location.state).then(res => setDoctor(res.data));
+  }
   useEffect(() => {
+    let rerender = true;
+    rerender&& getDoct()
+    return rerender=false
+  }, [location.state])
+  console.log(doctor)
+  
+  
+  /*useEffect(() => {
           const getDoc=async () => {
-          setDoctor(await (await axios.get("http://localhost:5000/doctor/findDoc/"+props.user.email)).data);
+          //setDoctor(await (await axios.get("http://localhost:5000/doctor/findDoc/"+props.user.email)).data);
           }
           getDoc();
           const interval=setInterval(()=>{
@@ -25,28 +41,19 @@ function DoctorProfil(props) {
     (
         async () => {
           const docEmail = props.user.email;
-          setDoctor(await (await axios.get("http://localhost:5000/doctor/findDoc/"+docEmail)).data);
+          //setDoctor(await (await axios.get("http://localhost:5000/doctor/findDoc/"+docEmail)).data);
           
         }
     )();
-},[user]);
+},[user]);*/
   const update = ()=>{
     //elam'/doctorUpdate'
-    navigate('/doctorUpdate', { state:{ user: user, doctor: doctor }})
+    //navigate('/doctorUpdate', { state:{ user: user, doctor: doctor }})
   }
   //console.log(doctor)
   return (
-    <div className='text-center my-4'>
-      <button className='btn btn-primary' onClick={update}  >Update</button>
-      <h2>{props.user.fullname}</h2>
-      {/*<h3 >{user.email}</h3>
-      <h4>{doctor.speciality}</h4>
-      <h4>{doctor.phoneNumber}</h4>
-      <p>Description: {doctor.generalDes}</p>  */}
-      {/* <h4>Diploms</h4> */}
-      {/* <p><b className='pe-2'>{doctor.education.year}:</b> {doctor.education.diplome}</p> */}
-      {/* <img src={`doctorProfilImg/${doctor.profilImg}`} style={{width:300 }}></img> */}
-      
+    <div>
+      <p>{doctor&&doctor.user.fullname}</p>
     </div>
   )
 }

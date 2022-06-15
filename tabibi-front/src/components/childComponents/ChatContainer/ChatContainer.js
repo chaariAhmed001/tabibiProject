@@ -66,7 +66,7 @@ console.log(socket)
           socket.current.on("send-msg", reqBody); 
           const msgs = [...chatMsgs];
           msgs.push({ fromSelf: true, message: chatMsg });
-          setChatMsgs(msgs);
+            setChatMsgs(msgs);
             setchatMsg('');
             setShowDate("d-none")
             setShowMsgIn("")    

@@ -24,7 +24,7 @@ function ContactList({contacts,changeChat }) {
                 <p className="text-muted m-0">Hey, Dr Chaari Ahmed</p>
             </div>
             <span className="time text-muted small">13:21</span>
-        </div>))
+          </div>))
         }
        
     </div>
