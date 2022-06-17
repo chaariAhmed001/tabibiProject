@@ -20,12 +20,12 @@ function LatestApp() {
         </tr>
             </thead>
         <tbody>
-        <Appointment patient='Chaari Ahmed' doctor='Ines Kamoun' date ='23/04/2022' status='Approved'/>
-        <Appointment patient='Chaari Ahmed' doctor='Ines Kamoun' date ='23/04/2022' status='Declined'/>
-        <Appointment patient='Chaari Ahmed' doctor='Ines Kamoun' date ='23/04/2022' status='Approved'/>
-        <Appointment patient='Chaari Ahmed' doctor='Ines Kamoun' date ='23/04/2022' status='Approved'/>
-        <Appointment patient='Chaari Ahmed' doctor='Ines Kamoun' date ='23/04/2022' status='Approved'/>
-        <Appointment patient='Chaari Ahmed' doctor='Ines Kamoun' date ='23/04/2022' status='Approved'/>
+        <Appointment patient='Chaari Ahmed' doctor='Kassar Slim' date ='26/04/2022' status='Approved'/>
+        <Appointment patient='Chaari Ahmed' doctor='Jabbes Hatem' date ='24/04/2022' status='Declined'/>
+        <Appointment patient='Chaari Ahmed' doctor='Haddad Sinda' date ='21/04/2022' status='Approved'/>
+        <Appointment patient='Chaari Ahmed' doctor='Haddad Sinda' date ='18/04/2022' status='Approved'/>
+        <Appointment patient='Chaari Ahmed' doctor='Jabbes Hatem' date ='17/04/2022' status='Approved'/>
+        <Appointment patient='Chaari Ahmed' doctor='Guiga Moncef' date ='06/04/2022' status='Approved'/>
         
         </tbody>
         

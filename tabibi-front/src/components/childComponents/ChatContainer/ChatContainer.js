@@ -146,7 +146,7 @@ const onStateChange1 = (e) => {
   return (
     <div className='col-lg-8 col-md-12'>
        <div className='profile-sec d-flex align-items-center'>
-            <img className='profile-img' src= {currentChat.profilImg ===undefined? '' : require(`../../../Imges/doctorProfilImg/${currentChat.profilImg}`)}></img>
+            <img className='profile-img'  src='img/dx.jpg'></img>
             <h4 className='profile-name ps-4'>{user && user.fullname}</h4>
         </div>
 

@@ -25,12 +25,16 @@ function SideBar() {
                 <h3 className="sidebarTitle ms-2">Dashboard</h3>
                 <ul className="sidebarList mb-0">
                   <li className="sidebarListItem active mb-2">
+                  <a href='http://localhost:3000/dashbourd'>
                     <FaHome className="sidebarIcon" />
                     Home
+                    </a>
                   </li>
                   <li className="sidebarListItem">
+                    <a href='http://localhost:3000/dashbourd'>
                     <IoAnalyticsSharp className="sidebarIcon" />
                     Analytics
+                    </a>
                   </li>
                 </ul>
               </div>

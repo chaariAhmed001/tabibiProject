@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './SideBarComponent.css'
 import { FaStar } from 'react-icons/fa';
 import GetUserName from '../GetUserName';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 const colors = {
     orange: "#FAA85B",
     grey: "#a9a9a9"
@@ -13,7 +14,9 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const [doc, setDoc] = useState(undefined)
-  const stars = Array(5).fill(0)
+  const stars = Array(5).fill(0);
+  let navigate = useNavigate(); 
+
     const handleClick = value => {
         setCurrentValue(value)
     }
@@ -29,7 +32,9 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
       
     }, [defaultDoc&&defaultDoc.email,selectedDoc!= undefined && selectedDoc.email])
    
-    
+    const navigateTochat =()=>{
+        navigate('/chat');
+    }
   return (
     <div className='sideBar-container ms-4'>
       <div className='sideBar-content '>
@@ -92,7 +97,8 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
                               The doctor will be available in 2 weeks
                           </p>
                           <div className='chat-btn m-auto'>
-                              <button type="button" className="btn btn-primary btn-sm ">Chat with doctor <GetUserName  email={doc&& doc.email}/></button>
+                              <button type="button" className="btn btn-primary btn-sm "  onClick={navigateTochat}>Chat with doctor <GetUserName  email={doc&& doc.email}/></button>
+                              <Link to="/chat" state={selectedDoc} className="btn btn-primary btn-sm"><GetUserName  email={doc&& doc.email}/></Link>
                           </div>
                       </div>                   
                   </div>

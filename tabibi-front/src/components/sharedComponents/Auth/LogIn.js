@@ -52,6 +52,10 @@ function LogIn() {
         
         return <Navigate to='/doctorProfil' state={user&&user.email} />
       }
+      else if(redirect && user.type === 'Admin'){
+        
+        return <Navigate to='/dashbourd' state={user&&user.email} />
+      }
   return (
     <div className='logIn-container'>
         <div className='logIn-content'>

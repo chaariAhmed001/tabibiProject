@@ -48,4 +48,7 @@
     font-weight: 700;
     color: white;
 }
-
+.doctor-status Button:hover{
+    background-color: #FAA85B;
+    color: white;
+}

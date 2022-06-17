@@ -72,7 +72,7 @@ function Chat() {
                 <div className='row'>
                     <div className='col-md-4 d-none d-lg-block wow slideInUp' data-wow-delay="0.1s">
                         <div className='profile-sec d-flex align-items-center'>
-                                <img className='profile-img' src='img/testimonial-1.jpg' alt='profilImg'></img>
+                                <img className='profile-img' src='img/dx.jpg' alt='profilImg'></img>
                                 <h4 className='profile-name ps-4'>{user && user.fullname}</h4>
                                 
                         </div>

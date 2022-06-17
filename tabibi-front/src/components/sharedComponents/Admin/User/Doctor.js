@@ -107,7 +107,7 @@ function Doctor() {
                                         </div>
                                     </div>
                                     <div className='doctor-desc my-2'>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel nisi nisl. Aliquam et nisi lorem. Vestibulum sodales a mauris et egestas. Mauris ligula erat, rhoncus at nisi nec, tempus tincidunt ligula.</p>
+                                        <p>{doctor.doctor && doctor.doctor.generalDes }</p>
                                     </div>
                                     <div className="doctorDetail">
                                         <div className='doctorAccount mb-3'>
@@ -115,10 +115,10 @@ function Doctor() {
                                             <div className='doctor-degree mb-2'>
                                             
                                                 <div className='mb-2'> <GiDiploma className='icon me-1'/> {doctor.doctor && doctor.doctor.education && doctor.doctor.education.diplome} | {doctor.doctor && doctor.doctor.education && doctor.doctor.education.university}</div>
-                                                <div> <GiDiploma className='icon me-1'/>  {doctor.doctor && doctor.doctor.education && doctor.doctor.education.diplome} | {doctor.doctor && doctor.doctor.education && doctor.doctor.education.university}</div>
+                                                
                                             </div>
                                             <div className='doctor-skills'>
-                                                <GiSkills className='icon me-2'/>skill1, skill2, skill3
+                                                <GiSkills className='icon me-2'/> List Of Treatments : <br></br>Inguinal Hernia Repair Surgery, Cholecystectomy - Gall Bladder Removal, Whipple Surgery
                                                 
                                             </div>
                                         </div>

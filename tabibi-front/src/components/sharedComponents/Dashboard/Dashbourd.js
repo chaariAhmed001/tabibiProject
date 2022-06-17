@@ -32,9 +32,9 @@ function Dashbourd() {
         </div>
         <div className='FeaturedInfo-container row'>
           <FeaturedInfo onClick={(e) => setColor("red")} title='Users' nbTody={todayUsers.length} nbTotal={users.length} icon='fa-user ' color='bl' />
-          <FeaturedInfo title='Patient' nbTody='0' nbTotal='4' icon='fa-bed' color='secondary' onClick={(e) => setColor("red")}/>
+          <FeaturedInfo title='Patient' nbTody='0' nbTotal='8' icon='fa-bed' color='secondary' onClick={(e) => setColor("red")}/>
           <FeaturedInfo title='Doctor' nbTody={todayDocs.length} nbTotal={ doctors.length} icon='fa-user-md' color='primary' onClick={(e) => setColor("red")}/>
-          <FeaturedInfo title='LandLord' nbTody='0' nbTotal='0' icon='fa-home' color='dark' onClick={(e) => setColor("red")}/>
+          <FeaturedInfo title='LandLord' nbTody='0' nbTotal='4' icon='fa-home' color='dark' onClick={(e) => setColor("red")}/>
         </div>
         <div className='row'>
           <LineChart color={color} users={users}/>
