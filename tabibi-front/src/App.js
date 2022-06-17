@@ -27,6 +27,7 @@ import DoctorAdd from './components/sharedComponents/Admin/User/DoctorAdd';
 import Cookies from 'universal-cookie';
 import PatientInfo from './components/sharedComponents/PatientInfo/PatientInfo';
 import Geolocation from './components/sharedComponents/Geolocation/Geolocation';
+import Service from './components/sharedComponents/Service/Service';
 
 function App() {
   
@@ -44,14 +45,15 @@ function App() {
         path===('http://localhost:3000/doctorAdd'))? setStyle('d-lg-flex d-block'):setStyle('')
         
   }, [])   
-  /*const getUser = async()=>{
+  const getUser = async()=>{
     setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
   }
   useEffect(()=>{
-  getUser()
-
+    let rerender = true
+  rerender&& getUser()
+    return rerender = false;
   }
-,[user])*/
+,[user.email])
   
   const logout = async () => {
     await fetch('http://localhost:5000/user/logout', {
@@ -72,7 +74,7 @@ const path = window.location.href;
         path===('http://localhost:3000/doctors')||
         path===('http://localhost:3000/doctor')||
         path===('http://localhost:3000/doctorAdd'))
-        ? <SideBar/> :<NavBar /> 
+        ? <SideBar/> :<NavBar user={user}/> 
         }
       
       {/* <button onClick={logout} >log out</button> */}
@@ -80,12 +82,13 @@ const path = window.location.href;
       <Router>
           <Routes>
             <Route path='/' exact element={ <Home /> }/>
-            <Route path='/signin' element={ <LogIn user={user} /> }/>
+            <Route path='/signin' element={ <LogIn user={user}  /> }/>
             <Route path='/signup' element={ <SignUp /> }/>
             <Route path='/doctorSignup' element={ <DoctorSignUp /> }/>
             <Route path='/landlodSignup' element={ <LandlodSignUp /> }/>
 
             <Route path='/about' element={ <AboutUs /> } />
+            <Route path='/service' element={ <Service /> } />
             <Route path='/chat' element={ <Chat /> } />
             <Route path='/contact' element={ <Contact /> } />
             <Route path='/passwordRec' element={ <LostPss /> } />

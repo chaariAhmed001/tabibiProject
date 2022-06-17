@@ -86,7 +86,7 @@ export class UserService {
     const today = new Date
     const users =await this.userModel.find().exec();
     users.forEach(element => {
-      if(element.crated.getDay() === today.getDay() && element.crated.getMonth() === today.getMonth() && element.crated.getFullYear() === today.getFullYear()&& element.type!= 'Admin')
+      if((element.crated.getDay() === today.getDay() && element.crated.getMonth() === today.getMonth() && element.crated.getFullYear() === today.getFullYear())&& element.type!= 'Admin')
       {
       todayUsers.push(element);
 

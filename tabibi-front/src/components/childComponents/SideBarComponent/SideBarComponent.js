@@ -98,7 +98,7 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
                           </p>
                           <div className='chat-btn m-auto'>
                               <button type="button" className="btn btn-primary btn-sm "  onClick={navigateTochat}>Chat with doctor <GetUserName  email={doc&& doc.email}/></button>
-                              <Link to="/chat" state={selectedDoc} className="btn btn-primary btn-sm"><GetUserName  email={doc&& doc.email}/></Link>
+                              {/* <Link to="/chat" state={selectedDoc} className="btn btn-primary btn-sm"><GetUserName  email={doc&& doc.email}/></Link> */}
                           </div>
                       </div>                   
                   </div>

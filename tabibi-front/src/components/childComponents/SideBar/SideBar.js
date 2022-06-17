@@ -12,7 +12,7 @@ function SideBar() {
   }
 
   return (
-    <div className='sideBar-container d-none d-lg-block col-2 bg-white navbar-light shadow-sm'>
+    <div className='sidebar-container d-none d-lg-block col-2 bg-white navbar-light shadow-sm'>
         <div className='sideBar-content'>
           <div className='logo my-3'>
             <a href="index.html">
