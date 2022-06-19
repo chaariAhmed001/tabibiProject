@@ -25,14 +25,19 @@ export class DoctorService {
     const user = await this.userService.getOne(email);
     return user
   }
-  async getDoct(docEmail){
-    const doc = await this.doctorModel.findOne({docEmail}).exec();
-    const user = await this.userService.getOne(docEmail);
+  async getDoctorByEmail(docEmail){
+    if(docEmail){
+      const doc = await this.doctorModel.findOne({docEmail}).exec();
+      const user = await this.userService.getOne(docEmail);
     return {
       doctor: doc,
       user: user
     }
   }
+  // else return null
+  }
+
+  
   async getAllDoctors() {
     return await this.doctorModel.find().exec();
     /*let all;
@@ -82,7 +87,12 @@ export class DoctorService {
         .exec();
       return post;
     }
-    
+    async getOneDoc(email): Promise<Doctor> {
+      const doc = await this.doctorModel
+      .findOne({email})
+      .exec();
+    return doc;
+  }
 
     async updateDoctor(docId, doctor : Doctor): Promise<Doctor> {
       const updateDoc = await this.doctorModel

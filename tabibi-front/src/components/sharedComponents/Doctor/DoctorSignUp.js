@@ -17,7 +17,7 @@ function DoctorSignUp() {
   });
   const [skills, setskills] = useState([])
   const [skillInput, setskillInput] = useState("");
-  const [city, setSity] = useState(['Béja','Ben Arous','Bizerte','Gabes','Gafsa','Jendouba','Kairouan','Kasserine','Kebili','La Manouba','Le Kef','Mahdia','Médenine','Monastir','Nabeul','Sfax','Sidi Bouzid','Siliana','Sousse','Tataouine','Tozeur','Tunis','Zaghouan'])
+  const [city, setCity] = useState(['Béja','Ben Arous','Bizerte','Gabes','Gafsa','Jendouba','Kairouan','Kasserine','Kebili','La Manouba','Le Kef','Mahdia','Médenine','Monastir','Nabeul','Sfax','Sidi Bouzid','Siliana','Sousse','Tataouine','Tozeur','Tunis','Zaghouan'])
     const handleSubmit=async (event)  =>{
       console.log(coordinates)
     event.preventDefault();
@@ -32,7 +32,6 @@ function DoctorSignUp() {
     data.append('crated',new Date);
     coordinates.lat!= null &&data.append('coordinates[lat]', coordinates&& coordinates.lat);
     coordinates.lat!= null &&data.append('coordinates[lng]',coordinates&& coordinates.lng);
-
    
     await axios.post("http://localhost:5000/doctor/signUp", data); 
     setRedirect(true);
@@ -146,13 +145,13 @@ function DoctorSignUp() {
                             {skills.map((skill,index)=>{
                                 return(
                                  
-                                  <span className='bg-light p-2 m-2' key={index} style={{borderRadius: 10}}>{skill }</span>
+                                  <span className='bg-light p-2 m-2' key={index} style={{borderRadius: 10}}>{skill}</span>
                                 
                                 );
                             })}
                       </div>
                       <div className="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="List Of Treatments" aria-label="Your Skills" aria-describedby="button-addon2"  onChange={onStateChange} value={skillInput}/>
+                        <input type="text" className="form-control" placeholder="List Of Treatments" aria-label="Your Skills" aria-describedby="button-addon2"  onChange={onStateChange} value={skillInput}/>
                         <button className="btn btn-outline-secondary" type="button" 
                             id="button-addon2" onClick={addSkills}>+</button>
                       </div>

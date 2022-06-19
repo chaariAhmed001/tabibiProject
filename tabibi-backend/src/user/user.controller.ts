@@ -99,7 +99,7 @@ export class UserController {
   @Post('logout')
   async logout(@Res({passthrough: true}) response) {
       response.clearCookie('connect.sid');
-
+        
       return {
           message: 'success'
       }

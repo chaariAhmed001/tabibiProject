@@ -4,11 +4,18 @@ import { Navigate, useLocation } from 'react-router-dom';
 import FormButton from '../../childComponents/Form/FormButton';
 import FormIllustrations from '../../childComponents/Form/FormIllustrations';
 import Input from '../../childComponents/Form/Input';
+import GooglePlacesInput from '../../childComponents/Form/GooglePlacesInput';
+import FormGroup from '../../childComponents/Form/FormGroup';
 function LandlodSignUp() {
   const location = useLocation();
   const [housePhotos, sethousePhotos] = useState([])
   const [redirect, setRedirect] = useState('false');
-  
+  const [options, setOptions] = useState([])
+  const [coordinates, setCoordinates] =useState({
+    lat: null,
+    lng: null
+  });
+
   const upload = (e) => {
       let photos=[];
     // Convert the FileList into an array and iterate
@@ -18,23 +25,43 @@ function LandlodSignUp() {
     sethousePhotos(photos)
 
 }
-console.log(housePhotos)
-
 const handleSubmit = async(event) =>{
   event.preventDefault();
   const data = new FormData(event.currentTarget);
-  data.append('email', location.state);
-  for (let i = 0 ; i < housePhotos.length ; i++) {
-    data.append(`photos${i}`, housePhotos);
-}
-  console.log(data.get('photos'))
-  await axios.post("http://localhost:5000/landlord/signUp", data);
+  const photo = data.append("photo",data.get('photo').name);
+  data.append("email",location.state);
+  data.append('crated',new Date);  
+  coordinates.lat!= null &&data.append('coordinates[lat]', coordinates&& coordinates.lat);
+  coordinates.lat!= null &&data.append('coordinates[lng]',coordinates&& coordinates.lng);
+  options.forEach(opt => { data.append("options[]", opt) })
+  const formData={
+    title: data.get('title'),
+    phoneNumber: data.get('phoneNumber'),
+    adress: data.get('adress'),
+    description:data.get('description'),
+    price: data.get('price'),
+    email:location.state,
+    photo:data.get('photo').name,
+    coordinates: coordinates,
+    area: data.get('area'),
+    bedrooms: data.get('bedrooms'),
+    bathrooms: data.get('bathrooms'),
+    options: options,
+    crated: new Date
+  }
+  await axios.post("http://localhost:5000/landlord/signUp",data);
+  
   setRedirect(true);
 }
 if(redirect===true){
   return <Navigate to="/signin"/>
 }
-
+const handleCordChange = (cord)=>{
+  setCoordinates(cord)
+}
+const getOptions =(options)=>{
+  setOptions(options)
+}
   return (
     <div className='signUp-container'>
         <div className='signUp-content'>
@@ -43,13 +70,26 @@ if(redirect===true){
                 <div className='col-12 col-lg-6 wow slideInUp' data-wow-delay="0.1s">
                     <h3 className='formTitel text-center mb-4'>Sign Up From Here</h3>
                     <form onSubmit={handleSubmit}>
-                        <Input type="text" name='title' placeholder="Title..."/>
-                        <Input type="text" name='phoneNumber' placeholder="Phone number..." required={'required'}/>
-                        <Input type="text" name='adress' placeholder="Adress..."required={'required'}/>
-                        <Input type="text" name='description' placeholder="Description..." required={'required'}/>
-                        <Input type="text" name='price' placeholder="Price night..." required={'required'}/>
-                        {/* <Input type="file" onChange = {upload} name='photo' placeholder="Photo..." required={'required'} multiple={'multiple'}/> */}
-                        <input onChange={upload}  name='photos'  type = 'file' multiple />
+                      <div className='row'>
+                        <div className='col-xl-6 col-md-12'>
+                          <Input type="text" name='title' placeholder="Title..." className='col-6 col-md-12 mb-4 m-auto'/>
+                          <Input type="text" name='phoneNumber' placeholder="Phone number..." required={'required'}className='col-6 col-md-12 mb-4 m-auto'/>
+                          <Input type="text" name='area' placeholder="Area en m2..." required={'required'}className='col-6 col-md-12 mb-4 m-auto'/>
+                          <Input type="text" name='bedrooms' placeholder="Number of Bedrooms..." required={'required'} className='col-6 col-md-12 mb-4 m-auto'/>
+                          <GooglePlacesInput name='adress' placeholder='House Adress...' getCoordinates={handleCordChange} className='col-6 col-md-12 mb-4 m-auto'/>
+                        </div>
+                        <div className='col-xl-6 col-md-12'>
+                        <Input type="text" name='bathrooms' placeholder="Number of Bathrooms..." required={'required'} className='col-6 col-md-12 mb-4 m-auto'/>
+                        <div className="m-auto pb-4">
+                              <textarea type="text" name='description' className="form-control   border bg-light px-4" placeholder="Description" style={{height:100}} required />
+                        </div>
+                        <Input type="text" name='price' placeholder="Price night..." required={'required'} className='col-6 col-md-12 mb-4 m-auto'/>
+                        <Input type="file" name='photo' placeholder="Photo..." required={'required'} className='col-6 col-md-12 mb-4 m-auto'/>
+                        </div>
+                      </div>                    
+                       
+                        
+                        <FormGroup name='options' placeholder='List of Options' getInputs={getOptions}/>
                         <FormButton type="submit" name="Register"/>
                     </form>
                 </div>

@@ -13,3 +13,6 @@
       font-size: 20px !important;
       color: var(--primary);
   }
+  .serach-result{
+    z-index: 10;
+  }

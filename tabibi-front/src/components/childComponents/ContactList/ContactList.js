@@ -13,7 +13,7 @@ function ContactList({contacts,changeChat }) {
             
             contacts&& contacts!= undefined &&(contacts.map((doc,index) =>
             <div 
-            className={` discussion-item wow fadeIn ${
+            className={` discussion-item wow fadeIn d-flex  align-items-center ${
                 index === currentSelected ? "selected" : ""
               }`} data-wow-delay="0.5s" key={index} 
               onClick={() => changeCurrentChat(index, doc)}
@@ -21,9 +21,7 @@ function ContactList({contacts,changeChat }) {
             <img className='profile-img' src= {doc.profilImg=== undefined? '' : require(`../../../Imges/doctorProfilImg/${doc.profilImg}`)} alt='profilImg'></img>
             <div className="text">
                 <GetUserName  email={doc.email}/>
-                <p className="text-muted m-0">Hey, Dr Chaari Ahmed</p>
             </div>
-            <span className="time text-muted small">13:21</span>
           </div>))
         }
        

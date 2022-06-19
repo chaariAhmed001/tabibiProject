@@ -59,7 +59,7 @@ function PatientInfo() {
                         <Input type="text" name='firstName' placeholder="First Name ..." required={'required'}/>
                         <Input type="text" name='lastName' placeholder="Last Name ..." required={'required'}/>
                         <Input type="text" name='age' placeholder="Your Age ..." required={'required'}/>
-                        <div className='m-auto col-6 m-auto pb-4'>
+                        <div className='m-auto col-6 m-auto'>
                               <select className="form-select m-auto mb-4 border bg-light px-4" aria-label="Default select example" name='gendre' required>
                                   <option value="">Gendre</option>
                                   {
@@ -69,7 +69,7 @@ function PatientInfo() {
                                   }
                               </select>
                         </div>
-                        <div className='m-auto col-6 m-auto pb-4'>
+                        <div className='m-auto col-6 m-auto'>
                               <select className="form-select m-auto mb-4 border bg-light px-4" aria-label="Default select example" name='speciality' required>
                                   <option value=''>speciality</option>
                                   {
@@ -79,7 +79,9 @@ function PatientInfo() {
                                   }
                               </select>
                         </div>
-                        <Input type="text" name='description' placeholder="Description..." required={'required'} style={{height:100}}/>
+                        <div className="col-6 m-auto pb-4">
+                              <textarea type="text" name='description' className="form-control   border bg-light px-4" placeholder="Description..." style={{height:100}} required />
+                        </div>
                         <FormButton type="submit" name="Register"/>
                     </form>
                 </div>

@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import '../Chat/Chat.css'
-import {FaSearch } from "react-icons/fa";
 import ContactList from '../../childComponents/ContactList/ContactList';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
 import ChatContainer from '../../childComponents/ChatContainer/ChatContainer';
 import Welcome from '../../childComponents/ChatContainer/Welcome';
 import { io } from "socket.io-client";
@@ -37,7 +35,6 @@ function Chat() {
             socket.current.connected=== true &&  socket.current.emit("add-user",user.id)
           }
      }, [user&&user.id]);
-    console.log(socket)
     //get users chat contacts list 
     const getcontacs= async () =>{
          //await axios.get("http://localhost:5000/doctor/doctors").then(res=>setContacts(res.data.res));
@@ -76,12 +73,12 @@ function Chat() {
                                 <h4 className='profile-name ps-4'>{user && user.fullname}</h4>
                                 
                         </div>
-                        <div className='search-box mb-4 '>
+                        {/* <div className='search-box mb-4 '>
                                 <div className='input-wrapper'>
                                     <FaSearch className='search-icon'/>
                                     <input placeholder='Search here' type='text '/>
                                 </div>
-                        </div>
+                        </div> */}
                        <ContactList contacts={contacts} changeChat={handleChatChange} />
                     </div>
                     {(currentChat === undefined )?

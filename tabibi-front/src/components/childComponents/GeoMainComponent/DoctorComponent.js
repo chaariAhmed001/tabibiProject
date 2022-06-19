@@ -94,7 +94,7 @@ function DoctorComponent({doctors,changeDoc}) {
                                           <p className='m-1  d-none d-sm-block '>
                                           <span>Description:</span> {doc.generalDes} 
                                           <a className='readMore d-md-none'>Read More</a>
-                                          <a className='readMore'> Read More About <GetUserName email={doc.email}/></a>
+                                          <a className='readMore' > Read More About <GetUserName email={doc.email}/></a>
                                           </p>
                                           
                                           </div>

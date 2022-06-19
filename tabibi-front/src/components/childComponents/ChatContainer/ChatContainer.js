@@ -4,9 +4,10 @@ import { AiFillSchedule } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
 import axios from 'axios';
 import { Socket } from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
 
 function ChatContainer({currentChat, connectedUser,socket}) {
-  
+    
     const [chatMsg, setchatMsg] = useState("");
     const [chatMsgs, setChatMsgs] = useState([]);
     const [user, setUser] = useState(undefined)
@@ -18,10 +19,15 @@ function ChatContainer({currentChat, connectedUser,socket}) {
     const [doctorScheduels, setDoctorScheduels] = useState(undefined)
     const scrollRef = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [showSch, setShowSch] = useState('');
+    const [showRentBtn, setShowRentBtn] = useState('d-none')
+    const navigate = useNavigate();
 
-
-console.log(socket)
-
+    useEffect(() => {
+     if(connectedUser.type === 'Patient')
+     setShowSch('d-none')
+    }, [])
+    
     //get user current chat sleceted 
     const getUser = async() =>{
       const res= await axios.get(`http://localhost:5000/user/${currentChat.email}`);
@@ -138,16 +144,28 @@ const onStateChange1 = (e) => {
             docotr_id : user&& user._id,
         }    
        await axios.post("http://localhost:5000/scheduels", data); 
+       setShowRentBtn('')
     }
 // patient cancel the scheduel Date
     const cancelScheduel = ()=>{
        chatMsgs.push(`${user && user.fullname} has cancel appointment`);
     }
+
+//Rederect Patient to the Rent Home Page
+const rederectToRenHome = () =>{
+  navigate('/rentHome',{state: currentChat&&currentChat.coordinates !=undefined&& currentChat.coordinates})
+}
+
+
   return (
     <div className='col-lg-8 col-md-12'>
        <div className='profile-sec d-flex align-items-center'>
             <img className='profile-img'  src='img/dx.jpg'></img>
-            <h4 className='profile-name ps-4'>{user && user.fullname}</h4>
+            <div className='d-flex w-100'>
+            <h4 className='profile-name ps-4 flex-grow-1'>{user && user.fullname}</h4>
+            <button className={`btn text-primary ${showRentBtn}`} onClick={rederectToRenHome}>RENT HOME</button>
+            </div>
+            
         </div>
 
         <div className='chat-section'>
@@ -190,7 +208,7 @@ const onStateChange1 = (e) => {
             </div>
             
             <div className='icons col-xl-2 col-lg-3 col-sm-3 col-4 mt-2'>
-                   <button className={`p-0 ${showMSgIn}`}><AiFillSchedule className='mx-2' onClick={showDatePicker}/></button> 
+                   <button className={`p-0 ${showMSgIn} ${showSch}  `}><AiFillSchedule className='mx-2' onClick={showDatePicker}/></button> 
                 <FaMicrophone className='me-2'/>
                 <button onClick={ShowMsg}>
                     <IoMdSend />

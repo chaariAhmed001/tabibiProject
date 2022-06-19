@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {selectedDoctor ,removeSelectedDoctor} from "../../../../redux/actions/doctorActions";
+import DoctorCard from './DoctorCard';
 function Doctor() {
   const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
   const [message, setMessage] = useState('');
@@ -88,61 +89,7 @@ function Doctor() {
                 </div>
                 <div className='row'>
                     <div className='col-xl-5 mb-4'>
-                        <div className="card shadow ">
-                            <div className="card-header py-3">
-                                <h6 className="m-0 font-weight-semi-bold text-primary">Doctor Profil</h6>
-                            </div>
-                            <div className="card-body">                              
-                                <div className="doctorProfil-container">
-                                    <div className="doctor-pres">
-                                    {/* src= {require(`../../../../Imges/doctorProfilImg/${doc.profilImg}`)} */}
-                                        <img 
-                                         src= {img ===undefined? '' : require(`../../../../Imges/doctorProfilImg/${img}`)}
-                                        alt="doctr Image"
-                                        className="doctorImg"
-                                        />
-                                        <div className="d-flex flex-column ms-3">
-                                        <h5 className='font-weight-semi-bold mb-0'>{doctor.user && doctor.user.fullname }</h5>
-                                        {doctor.doctor && doctor.doctor.speciality }
-                                        </div>
-                                    </div>
-                                    <div className='doctor-desc my-2'>
-                                        <p>{doctor.doctor && doctor.doctor.generalDes }</p>
-                                    </div>
-                                    <div className="doctorDetail">
-                                        <div className='doctorAccount mb-3'>
-                                            <h5 className='font-weight-semi-bold'>Account Details</h5>
-                                            <div className='doctor-degree mb-2'>
-                                            
-                                                <div className='mb-2'> <GiDiploma className='icon me-1'/> {doctor.doctor && doctor.doctor.education && doctor.doctor.education.diplome} | {doctor.doctor && doctor.doctor.education && doctor.doctor.education.university}</div>
-                                                
-                                            </div>
-                                            <div className='doctor-skills'>
-                                                <GiSkills className='icon me-2'/> List Of Treatments : <br></br>Inguinal Hernia Repair Surgery, Cholecystectomy - Gall Bladder Removal, Whipple Surgery
-                                                
-                                            </div>
-                                        </div>
-                                        <div className='doctorContact'>
-                                            <h5 className='font-weight-semi-bold'>Contact Details</h5>
-                                            <div className='doctor-email mb-2'>
-                                                <MdEmail className='icon me-1'/>
-                                                
-                                                {doctor.doctor && doctor.doctor.email }
-                                            </div>
-                                            <div className='doctor-phoneNumber mb-2'>
-                                                <MdSmartphone className='icon me-1'/>
-                                                {doctor.doctor && doctor.doctor.phoneNumber }
-                                            </div>
-                                            <div className='doctor-phoneNumber'>
-                                                <MdMapsHomeWork className='icon me-1'/>
-                                                {doctor.doctor && doctor.doctor.cabinetAddress }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
+                        <DoctorCard doctor={doctor} />
                     </div>
                     <div className='col-xl-7'>
                         <div className="card shadow mb-4">

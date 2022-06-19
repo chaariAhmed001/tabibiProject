@@ -24,7 +24,6 @@ import Users from './components/sharedComponents/Admin/AllUsers/Users';
 import Doctors from './components/sharedComponents/Admin/AllUsers/Doctors';
 import Doctor from './components/sharedComponents/Admin/User/Doctor';
 import DoctorAdd from './components/sharedComponents/Admin/User/DoctorAdd';
-import Cookies from 'universal-cookie';
 import PatientInfo from './components/sharedComponents/PatientInfo/PatientInfo';
 import Geolocation from './components/sharedComponents/Geolocation/Geolocation';
 import Service from './components/sharedComponents/Service/Service';
@@ -37,13 +36,16 @@ function App() {
   
   
   useEffect(() => {
-  
+  let rerender = true ;
+  if(rerender)
     (userType=== 'admin') &&
        (path===(`http://localhost:3000/dashbourd`)||
         path===('http://localhost:3000/doctors')||
         path===('http://localhost:3000/doctor')||
         path===('http://localhost:3000/doctorAdd'))? setStyle('d-lg-flex d-block'):setStyle('')
-        
+    return () =>{
+      rerender = false
+    }
   }, [])   
   const getUser = async()=>{
     setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
@@ -51,7 +53,7 @@ function App() {
   useEffect(()=>{
     let rerender = true
   rerender&& getUser()
-    return rerender = false;
+    return () =>rerender = false;
   }
 ,[user.email])
   
@@ -65,7 +67,6 @@ function App() {
     setUser({});
 
 }
-// console.log(user)
 const path = window.location.href;
   return (
     <div className={style}>

@@ -3,6 +3,7 @@ import './SideBarComponent.css'
 import { FaStar } from 'react-icons/fa';
 import GetUserName from '../GetUserName';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+
 const colors = {
     orange: "#FAA85B",
     grey: "#a9a9a9"
@@ -33,7 +34,9 @@ function SideBarComponent({selectedDoc,defaultDoc}) {
     }, [defaultDoc&&defaultDoc.email,selectedDoc!= undefined && selectedDoc.email])
    
     const navigateTochat =()=>{
-        navigate('/chat');
+        console.log(doc)
+        navigate('/chat',{ state: doc});
+       
     }
   return (
     <div className='sideBar-container ms-4'>

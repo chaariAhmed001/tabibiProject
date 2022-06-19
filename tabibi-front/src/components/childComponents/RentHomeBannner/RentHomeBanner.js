@@ -7,14 +7,6 @@ function RentHomeBanner() {
   return (
     <div className='rentHomeBanner-container'>
       <div className='rentHomeBanner-content'>
-        <div className='bannner-search d-flex flex-column'>
-          {showSearch && <Search />}
-          <button type="button" className="btn btn-outline-secondary banner-searchBtn"
-          onClick={()=> setShowSearch(!showSearch)}>
-            {
-              showSearch ? 'Hide' : 'Search Dates'
-            }</button>
-        </div>
         <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">

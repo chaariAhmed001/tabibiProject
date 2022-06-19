@@ -5,6 +5,8 @@ import { GiDiploma, GiSkills } from 'react-icons/gi';
 import { MdEmail, MdMapsHomeWork, MdSmartphone ,MdOutlineKeyboardBackspace, MdAddBox} from "react-icons/md";
 import Input from '../../childComponents/Form/Input';
 import FormButton from '../../childComponents/Form/FormButton';
+import DoctorCard from '../Admin/User/DoctorCard';
+import DoctorUpdate from '../Admin/User/DoctorUpdate';
 
 
 function DoctorProfil() {
@@ -16,44 +18,29 @@ function DoctorProfil() {
   const [result, setResult] = useState();
 
   const getDoct = async () =>{
-    await axios.get("http://localhost:5000/doctor/cpDoctor/"+location.state).then(res => setDoctor(res.data));
+    await axios.get("http://localhost:5000/doctor/findUser/"+location.state).then(res => setDoctor(res.data));
   }
   useEffect(() => {
     let rerender = true;
-    rerender&& getDoct()
-    return rerender=false
+    if(rerender)getDoct()
+    return () => { rerender = false };
   }, [location.state])
-  console.log(doctor)
-  
-  
-  /*useEffect(() => {
-          const getDoc=async () => {
-          //setDoctor(await (await axios.get("http://localhost:5000/doctor/findDoc/"+props.user.email)).data);
-          }
-          getDoc();
-          const interval=setInterval(()=>{
-            getDoc();
-           },100)
-        return()=>clearInterval(interval)
-  },[]);
-  console.log(doctor)
-  useEffect(() => {
-    (
-        async () => {
-          const docEmail = props.user.email;
-          //setDoctor(await (await axios.get("http://localhost:5000/doctor/findDoc/"+docEmail)).data);
-          
-        }
-    )();
-},[user]);*/
-  const update = ()=>{
-    //elam'/doctorUpdate'
-    //navigate('/doctorUpdate', { state:{ user: user, doctor: doctor }})
-  }
-  //console.log(doctor)
+
+console.log(doctor)
   return (
-    <div>
-      <p>{doctor&&doctor.user.fullname}</p>
+    <div className='doctorProfil-container '>
+      <div className='doctorProfil-content container p-0'>
+        <div className='row'>
+        <div className='col-xl-5 col-md-12 my-4'>
+          {/* <DoctorCard doctor={doctor !== undefined && doctor} /> */}
+        </div>
+        {/* <div className='col-xl-7 col-md-12 my-4'>
+          <DoctorUpdate doctor={doctor !== undefined && doctor} />
+
+        </div> */}
+        </div>
+        
+      </div>
     </div>
   )
 }
