@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './Doctor.css'
+import './User.css'
 import { GiDiploma, GiSkills } from 'react-icons/gi';
 import { MdEmail, MdMapsHomeWork, MdSmartphone ,MdOutlineKeyboardBackspace, MdAddBox} from "react-icons/md";
 import Input from '../../../childComponents/Form/Input';
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {selectedDoctor ,removeSelectedDoctor} from "../../../../redux/actions/doctorActions";
 import DoctorCard from './DoctorCard';
 function Doctor() {
-  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
+  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgeon','Dentist','Skin Care','Haire Care']);
   const [message, setMessage] = useState('');
   const [result, setResult] = useState();
   const navigate = useNavigate();

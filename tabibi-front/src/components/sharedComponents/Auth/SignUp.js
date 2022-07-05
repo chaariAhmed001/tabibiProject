@@ -89,7 +89,7 @@ function SignUp() {
         setRedirect(true);
       };
       if(redirect && userType === 'Patient'){
-        return <Navigate to="/signin" state={formData.email}/>
+        return <Navigate to="/patientSignUp" state={formData.email}/>
       }
       else if(redirect && userType === 'Landlord'){
         return <Navigate to='/LandlodSignUp' state={formData.email}/>

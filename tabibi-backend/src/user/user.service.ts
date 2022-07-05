@@ -94,7 +94,14 @@ export class UserService {
     });
     return todayUsers
 }
+async getUserByID(userId) {
+  const user = await this.userModel
+    .findById(userId)
+    .exec();
+  return user;
+}
   async delete(id): Promise<any> {
     return await this.userModel.findByIdAndRemove(id);
   }
+  
 }

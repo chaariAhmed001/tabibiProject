@@ -72,6 +72,7 @@ export class DoctorController {
              result,
         })
     }
+    
     @Get('/doctors')
     async fetchAll(@Res() response) {
         const res = await this.doctorService.getAllDoctors();
@@ -87,6 +88,14 @@ export class DoctorController {
         }
         return res.status(HttpStatus.OK).json(doctors);
     }  
+    @Get('/:email')
+    async getDoctorByEmail(@Res() res, @Param('email') email) {
+      const doc = await this.doctorService.getDoctorByEmail(email);
+      if (!doc) {
+          throw new NotFoundException('Doctor does not exist!');
+      }
+      return res.status(HttpStatus.OK).json(doc);
+    }
     @Get('/todayDoctors')
     async getToDayUsers(@Res() response) {
         const doctors = await this.doctorService.getToDayDoctors();
@@ -95,7 +104,7 @@ export class DoctorController {
         })
     }
     @Get(':email')
-    async getDocByEmail(@Res() response,@Param('email') email) {
+    async getDocEmail(@Res() response,@Param('email') email) {
       const res = this.doctorService.getDoctor(email);
       if (!res) {
         throw new NotFoundException('Doctor does not exist!');

@@ -1,7 +1,7 @@
 import React from 'react'
 import SubHeader from '../../childComponents/SubHeader'
 import HomeAboutUs from '../../childComponents/HomeAboutUs'
-import WhyUs from '../../childComponents/WhyUs'
+import WhyUs from '../../childComponents/WhyUs/WhyUs'
 import './AboutUs.css'
 import Doctors from '../../childComponents/Doctors'
 

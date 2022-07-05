@@ -9,6 +9,7 @@ import { Request } from 'express';
 import console from 'console';
 import { CookieAuthenticationGuard } from 'src/utils/guards/cookieAuthentication.guard';
 import { JwtAuthGuard } from 'src/utils/guards/jwt-guard.guard';
+import { ValidateObjectId } from 'src/blog/shared/pipes/validate-object-id.pipes';
 
 @UsePipes( new ValidationPipe() )
 @Controller('user')
@@ -122,4 +123,13 @@ export class UserController {
             deletedUser
         })
     }
+    @Get('/userById/:userId')
+    async getuserByID(@Res() res, @Param('userId', new ValidateObjectId()) userId) {
+      const user = await this.userService.getUserByID(userId);
+      if (!user) {
+          throw new NotFoundException('Post does not exist!');
+      }
+      return res.status(HttpStatus.OK).json(user);
+    }
+      
 }

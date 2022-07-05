@@ -5,7 +5,7 @@ import FormButton from '../../../childComponents/Form/FormButton';
 import Input from '../../../childComponents/Form/Input'
 
 function DoctorAdd() {
-  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
+  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgeon','Dentist','Skin Care','Haire Care']);
     const [result, setResult] = useState();
     const navigate = useNavigate();
     const handleSubmit = async (event)=>{

@@ -33,22 +33,7 @@ const handleSubmit = async(event) =>{
   data.append('crated',new Date);  
   coordinates.lat!= null &&data.append('coordinates[lat]', coordinates&& coordinates.lat);
   coordinates.lat!= null &&data.append('coordinates[lng]',coordinates&& coordinates.lng);
-  options.forEach(opt => { data.append("options[]", opt) })
-  const formData={
-    title: data.get('title'),
-    phoneNumber: data.get('phoneNumber'),
-    adress: data.get('adress'),
-    description:data.get('description'),
-    price: data.get('price'),
-    email:location.state,
-    photo:data.get('photo').name,
-    coordinates: coordinates,
-    area: data.get('area'),
-    bedrooms: data.get('bedrooms'),
-    bathrooms: data.get('bathrooms'),
-    options: options,
-    crated: new Date
-  }
+  options.forEach(opt => { data.append("options[]", opt) });
   await axios.post("http://localhost:5000/landlord/signUp",data);
   
   setRedirect(true);

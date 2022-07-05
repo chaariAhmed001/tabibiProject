@@ -1,8 +1,8 @@
 import React from 'react'
 import CommentSection from '../../childComponents/CommentSection'
-import DepartmentArea from '../../childComponents/DepartmentArea'
+import DepartmentArea from '../../childComponents/DepartmentArea/DepartmentArea'
 import SubHeader from '../../childComponents/SubHeader'
-import WhyUs from '../../childComponents/WhyUs'
+import WhyUs from '../../childComponents/WhyUs/WhyUs'
 
 function Service() {
   return (

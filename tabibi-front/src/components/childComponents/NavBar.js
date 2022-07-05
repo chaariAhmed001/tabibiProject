@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, { useState } from 'react'
-
 function NavBar({user}) {
     const [userCn, setUserCn] = useState(user);
     const logout = async () => {
+        //await axios.put("http://localhost:5000/user/update/"+userCn.id,{status :'offline'});
+        console.log(user)
         await fetch('http://localhost:5000/user/logout', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -22,24 +24,25 @@ function NavBar({user}) {
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
             <div className="navbar-nav ms-auto py-0">
-                <a href="http://localhost:3000" className="nav-item nav-link active">Home</a>
+                <a href="http://localhost:3000" className="nav-item nav-link">Home</a>
                 <a href="http://localhost:3000/about" className="nav-item nav-link">About</a>
                 <a href="http://localhost:3000/service" className="nav-item nav-link">Service</a>
                 <a href="http://localhost:3000/contact" className="nav-item nav-link">Contact</a>
                 {
                     user.type === 'Doctor' && <div className='d-flex'>
-                        <a href="http://localhost:3000/schedule" className="nav-item nav-link active">schedule</a>
                         <a href="http://localhost:3000/doctorProfil" className="nav-item nav-link">DoctorProfil</a>
+                        <a href="http://localhost:3000/schedule" className="nav-item nav-link">schedule</a>
                         <a href="http://localhost:3000/chat" className="nav-item nav-link">Chat</a>
                         <a href='http://localhost:3000' onClick={logout} className="nav-item nav-link">LogOut</a> 
                     </div>
                 }
                 {
                     user.type === 'Patient' && <div className='d-flex'>
-                        <a href="http://localhost:3000/schedule" className="nav-item nav-link active">schedule</a>
+                        <a href="http://localhost:3000/patientProfil" className="nav-item nav-link">PatientProfil</a>
+                        <a href="http://localhost:3000/schedule" className="nav-item nav-link">Schedule</a>
                         <a href="http://localhost:3000/chat" className="nav-item nav-link">Chat</a>
                         <a href="http://localhost:3000/patientInfo" className="nav-item nav-link">Search Doctor</a>
-                        <a href="http://localhost:3000/doctorProfil" className="nav-item nav-link">Favorite</a>
+                        <a href="http://localhost:3000/wichList" className="nav-item nav-link">Favorite</a>
                         <a  href='http://localhost:3000' onClick={logout} className="nav-item nav-link">LogOut</a>
                         
                     </div>

@@ -6,7 +6,7 @@ import PlacesAutocomplete, {geocodeByAddress,geocodeByPlaceId,getLatLng} from 'r
 
 function DoctorSignUp() {
   const [formData, setFormData] = useState();
-  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
+  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgeon','Dentist','Skin Care','Haire Care']);
   const [redirect, setRedirect] = useState('false');
   const location = useLocation();
   const [userEmail, setUserEmail] = useState(location.state)

@@ -7,13 +7,17 @@ import GetUserName from '../GetUserName';
 import axios from 'axios';
 
 function DoctorComponent({doctors,changeDoc}) {
-  const [elements, setElemets] = useState(['Sprciality','Year of experience','Availbility','Status']);
-  const [sorts, setSorts] = useState(['Alphabet','city','Availbility','Status']);
+  const [sorts, setSorts] = useState(['experience ','Name','city','Status']);
   const [currentSelected, setCurrentSelected] = useState(undefined);
   const [coordinates, setCoordinates] = useState({});
   const [searchInput, setSearchInput] = useState('');
-  const [allDoctors, setAllDoctors] = useState([])
-    
+  const [allDoctors, setAllDoctors] = useState([]);
+  const [selectedSort, setSelectedSort] = useState('')
+    const getSort =  ( e)=> {
+      let sort = e.target.value;
+      if(sort==='Name') setSelectedSort('email')
+      else setSelectedSort(sort)
+    }
   /*useEffect(async() => {
     const getDoctors =async(docId)=>{
       await axios.get(`http://localhost:5000/doctor/doctor/${docId}`).then(res => allDoctors.push(res.data))
@@ -29,23 +33,31 @@ function DoctorComponent({doctors,changeDoc}) {
       setCurrentSelected(index);
       changeDoc(doc)
     };
-    
+    console.log(selectedSort)
   return (
     <div className='doctorSec-container'>
         <div className='doctorSec-content'>
           <div className='searchSec-conent d-none d-lg-block my-3'>
             <div className='container px-0'>
               <div className='row'>
-                  <div className='doctor-search col-7'>
+                  <div className='doctor-search col-8 '>
                       <div className='col-12 m-auto pb-4'>
                           <input  className="form-control border bg-light px-4"  type="search" name='search' 
                           placeholder="Search Doctor..." aria-label="Search" 
                           onChange={(e)=> setSearchInput(e.target.value)}/>
                       </div>
                   </div>             
-                  <div className='doctor-filter d-flex col-5'> 
-                      <SelectUser className='col-5 me-4' name='Filtert Results' elements={elements}/> 
-                      <SelectUser className='col-5' name='Sort by' elements={sorts}/> 
+                  <div className='doctor-filter d-flex col-4'> 
+                  <div className='col-10 m-auto pb-4'>
+                    <select className="form-select border bg-light  " aria-label="Default select example" name='sortBy' onChange={getSort }>
+                        <option value="">SortBy</option>
+                        {
+                            sorts.map((element,index,specialitys) => 
+                            <option value={element} key={index} >{element}</option>
+                            )                          
+                        }
+                      </select>
+                    </div> 
                   </div>
                 
               </div>
@@ -65,6 +77,14 @@ function DoctorComponent({doctors,changeDoc}) {
                             return doc.email.toLowerCase().includes(searchInput.toLowerCase())
                         }
                     })
+                    .sort(function(a, b) {
+                      if(selectedSort!=''&&selectedSort){
+                        if(a.selectedSort < b.selectedSort) return 1;
+                        if(a.selectedSort> b.selectedSort) return -1;
+                        
+                      }
+                      else return 0;
+                     })
                    .map((doc,index) =>
                     <div className={`doctorCard-container p-2 ms-4 mt-3 ${index === currentSelected ? 
                       "selected" : ""}`} data-wow-delay="0.5s" onClick={() => changeCurrentDoc(index, doc)} 
@@ -93,8 +113,8 @@ function DoctorComponent({doctors,changeDoc}) {
                                           <div className='doctor-desc'>
                                           <p className='m-1  d-none d-sm-block '>
                                           <span>Description:</span> {doc.generalDes} 
-                                          <a className='readMore d-md-none'>Read More</a>
-                                          <a className='readMore' > Read More About <GetUserName email={doc.email}/></a>
+                                          {/* <a className='readMore d-md-none'>Read More</a>
+                                          <a className='readMore' > Read More About <GetUserName email={doc.email}/></a> */}
                                           </p>
                                           
                                           </div>

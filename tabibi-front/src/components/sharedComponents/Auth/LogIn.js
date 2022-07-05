@@ -1,29 +1,30 @@
-import React , { useEffect, useState }  from 'react'
+import React , { useEffect, useState,useContext }  from 'react'
 import './Auth.css'
 import { useNavigate } from 'react-router-dom'
+import { loginContext } from '../../../Context/loginContext';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 
 
-function LogIn() {
+function LogIn({onSuccess}) {
+    const {user,setUser} = useContext(loginContext)
     let navigate = useNavigate();
     const [redirect, setRedirect] = useState(false)
     const [errMsg, setErrMsg] = useState();
-    const [user, setUser] = useState({});
     const getUser = async()=>{
         setUser((await axios.get("http://localhost:5000/user",{ withCredentials: true })).data)
       }
       useEffect(()=>{
         let isApiSubscribed = true;
-        if (isApiSubscribed) 
-            getUser()
+        if (isApiSubscribed){getUser()}
         return () => {
                 // cancel the subscription
                 isApiSubscribed = false;
+                
             };
       }
     ,[user && user.email])
-
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -34,14 +35,14 @@ function LogIn() {
        const res =await axios.post("http://localhost:5000/user/signin", form, { withCredentials: true })
        setErrMsg(res.data)
        if(!res.data){
+        onSuccess();
         setRedirect(true);  
-        setUser(res.data)
+        setUser(res.data);
+        
     }
     
      };
 
-    //console.log(userType)
-     // if(redirect){ return <Navigate to="/chat" /> }
      if(redirect && user.type === 'Patient'){
         return <Navigate to="/patientInfo" state={user&&user.id}/>
       }

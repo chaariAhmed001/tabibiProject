@@ -7,9 +7,9 @@ import { UserModule } from './user/user.module';
 import { DoctorModule } from './doctor/doctor.module';
 import { LandlordModule } from './Landlord/landlord.module';
 import { MessagesModule } from './messages/messages.module';
-import { PatientModule } from './patient/patient.module';
 import { ScheduelsModule } from './scheduels/scheduels.module';
 import { PatientInfoModule } from './patient-info/patient-info.module';
+import { PatientModule } from './patient/patient.module';
 
 
 

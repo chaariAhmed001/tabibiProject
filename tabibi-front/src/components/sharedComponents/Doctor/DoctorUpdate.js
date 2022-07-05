@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
 
 function DoctorUpdate(props) {
-  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
+  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgeon','Dentist','Skin Care','Haire Care']);
   const [message, setMessage] = useState('')
   const { state } = useLocation();
   const [result, setResult] = useState()

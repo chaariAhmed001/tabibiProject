@@ -26,4 +26,9 @@ export class ScheduelsController {
     const posts = await this.scheduelsService.getScheduelsByPatint(patient_id);
     return res.status(HttpStatus.OK).json(posts);
   }
+  @Get('data/:doctor_id')
+  async getDataByDoctor(@Res() res,@Param('doctor_id') doctor_id) {
+    const posts = await this.scheduelsService.getDataByDoctor(doctor_id);
+    return res.status(HttpStatus.OK).json(posts);
+  }
 }

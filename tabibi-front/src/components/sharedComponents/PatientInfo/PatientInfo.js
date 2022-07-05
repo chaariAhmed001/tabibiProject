@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FormButton from '../../childComponents/Form/FormButton'
 import FormIllustrations from '../../childComponents/Form/FormIllustrations'
 import Input from '../../childComponents/Form/Input'
@@ -10,14 +10,13 @@ import { Navigate } from 'react-router-dom';
 
 function PatientInfo() {
   let navigate = useNavigate();
-  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgery','Dentist','Skin Care','Haire Care']);
+  const [specialitys, setSpecialitys ]= useState(['Eye Expert','Ot Expert','Corona Expert','Consultant','Surgeon','Dentist','Skin Care','Haire Care']);
   const [gendre, setGendre] = useState(['Male', 'Female']);
   const [redirect, setRedirect] = useState(false);
-  const [selctedSpeciality, setSelctedSpeciality] = useState('')
-  
-  
-
+  const [selctedSpeciality, setSelctedSpeciality] = useState('')  
   const location = useLocation();
+   
+  
   
     const handleSubmit = async (event)=>{
     event.preventDefault();
